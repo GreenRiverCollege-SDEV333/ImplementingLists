@@ -29,7 +29,7 @@ public class Arraylist<ItemType> implements List<ItemType>{
      */
     @Override
     public int size() {
-        return size;
+        return size ;
     }
 
     /**
@@ -39,7 +39,7 @@ public class Arraylist<ItemType> implements List<ItemType>{
      */
     @Override
     public boolean isEmpty() {
-        return false;
+        return size == 0;
     }
 
     /**
@@ -120,6 +120,8 @@ public class Arraylist<ItemType> implements List<ItemType>{
     @Override
     public void clear() {
 
+        // lazy deletion - length will still be whatever it last was
+        size = 0;
     }
 
     /**
@@ -132,7 +134,10 @@ public class Arraylist<ItemType> implements List<ItemType>{
      */
     @Override
     public boolean containsAll(Collection<? extends ItemType> otherCollection) {
-        return false;
+
+        //fail fast(fail loud)
+        throw new UnsupportedOperationException(" Not Implemented");
+        //return false;
     }
 
     /**
@@ -142,7 +147,7 @@ public class Arraylist<ItemType> implements List<ItemType>{
      */
     @Override
     public void addAll(Collection<? extends ItemType> otherCollection) {
-
+        throw new UnsupportedOperationException(" Not Implemented");
     }
 
     /**
@@ -181,7 +186,11 @@ public class Arraylist<ItemType> implements List<ItemType>{
      */
     @Override
     public ItemType get(int index) {
-        return null;
+
+        if(index >= size){
+            throw new IndexOutOfBoundsException();
+        }
+        return data[index];
     }
 
     /**
@@ -197,7 +206,10 @@ public class Arraylist<ItemType> implements List<ItemType>{
      */
     @Override
     public void set(int index, ItemType item) {
-
+        if(index >= size){
+            throw new IndexOutOfBoundsException();
+        }
+        data[index] = item;
     }
 
     /**

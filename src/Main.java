@@ -19,8 +19,11 @@ public class Main {
         friends.add("meadow");
         friends.add("aj");
         friends.add("Jess");
+        friends.add("Jess");
 
 
         System.out.println("size is now " + friends.size());
+
+       // friends.addAll(); will throw exception..fail fast
     }
 }
