@@ -4,6 +4,18 @@ import java.util.Iterator;
 import java.util.ListIterator;
 
 public class ArrayList<ItemType> implements List<ItemType>{
+//WE NEED FIELDS
+
+    //one java array
+    private ItemType[] data;
+
+    //size (# of spots being used by data array)
+    private int size;
+
+    public ArrayList() {
+        data = (ItemType[]) new Object[10];
+        size = 0;
+    }
 
     /**
      * Returns the number of items in this collection.
