@@ -40,7 +40,7 @@ public class ArrayList<ItemType> implements List<ItemType> {
      */
     @Override
     public boolean isEmpty() {
-        return false;
+        return size == 0;
     }
 
     /**
@@ -53,6 +53,7 @@ public class ArrayList<ItemType> implements List<ItemType> {
      */
     @Override
     public boolean contains(ItemType item) {
+        // AT HOME
         return false;
     }
 
@@ -107,7 +108,8 @@ public class ArrayList<ItemType> implements List<ItemType> {
      */
     @Override
     public void remove(ItemType item) {
-
+        // IN CLASS
+        // find element, then shift everything else left
     }
 
     /**
@@ -116,7 +118,8 @@ public class ArrayList<ItemType> implements List<ItemType> {
      */
     @Override
     public void clear() {
-
+        // data = (ItemType[]) new Object[data.length];
+        size = 0;
     }
 
     /**
@@ -129,7 +132,9 @@ public class ArrayList<ItemType> implements List<ItemType> {
      */
     @Override
     public boolean containsAll(Collection<? extends ItemType> otherCollection) {
-        return false;
+        // fail LOUD
+        throw new UnsupportedOperationException();
+        //return false;
     }
 
     /**
@@ -178,7 +183,10 @@ public class ArrayList<ItemType> implements List<ItemType> {
      */
     @Override
     public ItemType get(int index) {
-        return null;
+        if (index >= size) {
+            throw new IndexOutOfBoundsException("index is beyond size");
+        }
+        return data[index];
     }
 
     /**
@@ -194,7 +202,10 @@ public class ArrayList<ItemType> implements List<ItemType> {
      */
     @Override
     public void set(int index, ItemType item) {
-
+        if (index >= size) {
+            throw new IndexOutOfBoundsException("index is beyond size");
+        }
+        data[index] = item;
     }
 
     /**
@@ -211,7 +222,7 @@ public class ArrayList<ItemType> implements List<ItemType> {
      */
     @Override
     public void add(int index, ItemType item) {
-
+        // AT HOME - try at home
     }
 
     /**
