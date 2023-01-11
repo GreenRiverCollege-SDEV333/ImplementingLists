@@ -71,11 +71,23 @@ public class ArrayList<ItemType> implements List<ItemType>{
     public void add(ItemType item) {
         //check that there is room to add, if not resize array
         if(size == data.length){
+            //create larger array
+            ItemType[] temp = (ItemType[]) new Object[(size * 2)];
 
-        }else {
-            data[size] = item;
-            size++;
+            //copy data items to temp
+            for(int i =0; i < size; i++){
+                temp [i] = data[i];
+            }
+
+            //repoint data to temp
+            data = temp;
+
+            //optional
+//            temp = null;
         }
+        data[size] = item;
+        size++;
+
     }
 
     /**
