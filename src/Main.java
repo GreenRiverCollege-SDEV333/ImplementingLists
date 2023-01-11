@@ -9,5 +9,19 @@ public class Main {
         System.out.println("Initial size is: " + friends.size());
         friends.add("Jess");
         System.out.println("Size is now: " + friends.size());
+        friends.add("Jess");
+        friends.add("Jess");
+        friends.add("Jess");
+        friends.add("Jess");
+        friends.add("Jess");
+        friends.add("Jess");
+        friends.add("Jess");
+        friends.add("Jess");
+        friends.add("Jess");
+        friends.add("Jess");
+        friends.add("Jess");
+        friends.add("Jess");
+        System.out.println("Size is now: " + friends.size());
+
     }
 }

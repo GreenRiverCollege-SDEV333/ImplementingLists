@@ -34,7 +34,7 @@ public class ArrayList<ItemType> implements List<ItemType>{
      */
     @Override
     public boolean isEmpty() {
-        return false;
+        return size == 0;
     }
 
     /**
@@ -47,6 +47,12 @@ public class ArrayList<ItemType> implements List<ItemType>{
      */
     @Override
     public boolean contains(ItemType item) {
+        //do this
+        for(int i = 0; i<size; i++){
+            if(data[i] == item){
+                return true;
+            }
+        }
         return false;
     }
 
@@ -98,6 +104,7 @@ public class ArrayList<ItemType> implements List<ItemType>{
      * @throws NullPointerException if the specified item is null
      *                              and this collection does not permit null items
      */
+    //do this one
     @Override
     public void remove(ItemType item) {
 
@@ -109,7 +116,7 @@ public class ArrayList<ItemType> implements List<ItemType>{
      */
     @Override
     public void clear() {
-
+        data = (ItemType[]) new Object[10];
     }
 
     /**
@@ -122,7 +129,8 @@ public class ArrayList<ItemType> implements List<ItemType>{
      */
     @Override
     public boolean containsAll(Collection<? extends ItemType> otherCollection) {
-        return false;
+//        return false;
+        throw new UnsupportedOperationException("method not implemented");
     }
 
     /**
@@ -171,7 +179,11 @@ public class ArrayList<ItemType> implements List<ItemType>{
      */
     @Override
     public ItemType get(int index) {
-        return null;
+        if(index >= size){
+            throw new ArrayIndexOutOfBoundsException();
+        }else {
+            return data[index];
+        }
     }
 
     /**
@@ -187,7 +199,11 @@ public class ArrayList<ItemType> implements List<ItemType>{
      */
     @Override
     public void set(int index, ItemType item) {
-
+        if(index > size){
+            throw new ArrayIndexOutOfBoundsException();
+        }else {
+            data[index] = item;
+        }
     }
 
     /**
