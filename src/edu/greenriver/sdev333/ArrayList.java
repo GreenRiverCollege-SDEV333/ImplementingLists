@@ -45,7 +45,13 @@ public class ArrayList<ItemType> implements List<ItemType>
      */
     @Override
     public boolean isEmpty() {
+        if(size == 0)
+        {
+            return true;
+        }
         return false;
+
+        //alternate way to write it : return size == 0 ;
     }
 
     /**
