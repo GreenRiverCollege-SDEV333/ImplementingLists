@@ -24,7 +24,7 @@ public class ArrayList<ItemType> implements List<ItemType>{
      */
     @Override
     public int size() {
-        return 0;
+        return size;
     }
 
     /**
@@ -69,7 +69,13 @@ public class ArrayList<ItemType> implements List<ItemType>{
      */
     @Override
     public void add(ItemType item) {
+        //check that there is room to add, if not resize array
+        if(size == data.length){
 
+        }else {
+            data[size] = item;
+            size++;
+        }
     }
 
     /**
