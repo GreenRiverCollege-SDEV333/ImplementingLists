@@ -38,7 +38,7 @@ public class ArrayList<ItemType> implements List<ItemType>{
      */
     @Override
     public boolean isEmpty() {
-        return false;
+        return size == 0;
     }
 
     /**
@@ -51,7 +51,7 @@ public class ArrayList<ItemType> implements List<ItemType>{
      */
     @Override
     public boolean contains(ItemType item) {
-        return false;
+        return false;//do this at home
     }
 
     /**
@@ -61,7 +61,7 @@ public class ArrayList<ItemType> implements List<ItemType>{
      */
     @Override
     public Iterator<ItemType> iterator() {
-        return null;
+        return null;//in class with Ken
     }
 
     /**
@@ -111,7 +111,8 @@ public class ArrayList<ItemType> implements List<ItemType>{
      */
     @Override
     public void clear() {
-
+        //lazy deletion:
+        size = 0;
     }
 
     /**
@@ -124,7 +125,9 @@ public class ArrayList<ItemType> implements List<ItemType>{
      */
     @Override
     public boolean containsAll(Collection<? extends ItemType> otherCollection) {
-        return false;
+        //fail fast (fail loud)
+        throw new UnsupportedOperationException("Not implemeted");
+        //return false;
     }
 
     /**
@@ -134,7 +137,8 @@ public class ArrayList<ItemType> implements List<ItemType>{
      */
     @Override
     public void addAll(Collection<? extends ItemType> otherCollection) {
-
+        //fail fast (fail loud)
+        throw new UnsupportedOperationException("Not implemeted");
     }
 
     /**
@@ -173,7 +177,10 @@ public class ArrayList<ItemType> implements List<ItemType>{
      */
     @Override
     public ItemType get(int index) {
-        return null;
+        if(index >= size){
+            throw new IndexOutOfBoundsException("Nothing at that location");
+        }
+        return data[index];
     }
 
     /**
@@ -189,7 +196,10 @@ public class ArrayList<ItemType> implements List<ItemType>{
      */
     @Override
     public void set(int index, ItemType item) {
-
+        if(index >= size){
+            throw new IndexOutOfBoundsException("Nothing at that location");
+        }
+        data[index] = item;
     }
 
     /**
@@ -206,7 +216,7 @@ public class ArrayList<ItemType> implements List<ItemType>{
      */
     @Override
     public void add(int index, ItemType item) {
-
+        //try this one at home (add at location 3, but move all the rest down
     }
 
     /**

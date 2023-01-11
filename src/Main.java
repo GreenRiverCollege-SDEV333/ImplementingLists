@@ -24,5 +24,7 @@ public class Main {
         friends.add("Trudy");
         friends.add("Mel");
         System.out.println("Yay! I have " + friends.size() + " friends!");
+
+        //friends.addAll(...); will cause an intentional crash
     }//end main method
 }//end class
