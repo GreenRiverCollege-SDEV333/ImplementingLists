@@ -81,7 +81,7 @@ public class ArrayList<ItemType> implements List<ItemType> {
      */
     @Override
     public void add(ItemType item) {
-        System.out.print("add(), size starting: " + size + ", size ending: ");
+        //System.out.print("add(), size starting: " + size + ", size ending: ");
         data[size++] = item;
 
         // all of the above works until I run out of room when size becomes
