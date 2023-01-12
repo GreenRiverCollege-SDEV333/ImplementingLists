@@ -81,7 +81,6 @@ public class ArrayList<ItemType> implements List<ItemType> {
      */
     @Override
     public void add(ItemType item) {
-        //System.out.print("add(), size starting: " + size + ", size ending: ");
         data[size++] = item;
 
         // all of the above works until I run out of room when size becomes
@@ -100,8 +99,6 @@ public class ArrayList<ItemType> implements List<ItemType> {
             // Step 3 - point 'data' at temp array
             data = temp;
         }
-
-        System.out.println(size);
 
     }
 
@@ -267,7 +264,13 @@ public class ArrayList<ItemType> implements List<ItemType> {
      */
     @Override
     public int indexOf(ItemType item) {
-        return 0;
+        // DID AT HOME
+        for (int i = 0; i < size; i++) {
+            if (data[i].equals(item))
+                return i;
+        }
+
+        return -1;
     }
 
     /**
@@ -282,7 +285,13 @@ public class ArrayList<ItemType> implements List<ItemType> {
      */
     @Override
     public int lastIndexOf(ItemType item) {
-        return 0;
+        // DID AT HOME
+        for (int i = size-1; i >= 0; i--) {
+            if (data[i].equals(item))
+                return i;
+        }
+
+        return -1;
     }
 
     /**

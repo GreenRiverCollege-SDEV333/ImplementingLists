@@ -45,7 +45,7 @@ public class Main {
         System.out.println();
         System.out.println();
 
-        System.out.println("Added 20 to list");
+        System.out.println("Adding 20 to list");
         intList.add(20);
         System.out.println("Size: " + intList.size());
         for (int i = 0; i < intList.size(); i++) {
@@ -70,6 +70,31 @@ public class Main {
         for (int i = 0; i < intList.size(); i++) {
             System.out.print(intList.get(i) + " ");
         }
+        System.out.println();
+        System.out.println();
+
+        System.out.println("Testing indexOf(item), index of 90 should be 9.");
+        System.out.println(intList.indexOf(90));
+        System.out.println("Testing indexOf(item), index of 3 should be 2.");
+        System.out.println(intList.indexOf(3));
+        System.out.println();
+        System.out.println();
+
+
+        System.out.println("Adding 5, then 30, then 35 to list");
+        intList.add(5);
+        intList.add(30);
+        intList.add(35);
+        System.out.println("Size: " + intList.size());
+        for (int i = 0; i < intList.size(); i++) {
+            System.out.print(intList.get(i) + " ");
+        }
+        System.out.println();
+        System.out.println();
+
+        System.out.println("Finding last index of 5, should be 12");
+        System.out.println("Calculated lastIndex of 5: " + intList.lastIndexOf(5));
+        System.out.println();
         System.out.println();
 
     }
