@@ -53,7 +53,12 @@ public class ArrayList<ItemType> implements List<ItemType> {
      */
     @Override
     public boolean contains(ItemType item) {
-        // AT HOME
+
+        for (int i = 0; i < size; i++) {
+            if (data[i].equals(item))
+                return true;
+        }
+
         return false;
     }
 
@@ -76,7 +81,7 @@ public class ArrayList<ItemType> implements List<ItemType> {
      */
     @Override
     public void add(ItemType item) {
-
+        System.out.print("add(), size starting: " + size + ", size ending: ");
         data[size++] = item;
 
         // all of the above works until I run out of room when size becomes
@@ -95,6 +100,8 @@ public class ArrayList<ItemType> implements List<ItemType> {
             // Step 3 - point 'data' at temp array
             data = temp;
         }
+
+        System.out.println(size);
 
     }
 
@@ -223,6 +230,16 @@ public class ArrayList<ItemType> implements List<ItemType> {
     @Override
     public void add(int index, ItemType item) {
         // AT HOME - try at home
+
+        // Add the last item to the end of list, and shift everything behind it to the right
+        this.add(data[size-1]);
+        //System.out.println("add(_,_), data[size-1]: " + data[size-1]);
+
+        for (int i = size-2; i > index; i--) {
+            data[i] = data[i-1];
+        }
+
+        set(index, item);
     }
 
     /**
