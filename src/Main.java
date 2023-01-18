@@ -25,12 +25,26 @@ public class Main {
         friends.add("Jeremy");
         System.out.println("Size is now: " + friends.size());
 
+        friends.add(1, "Hello");
+        friends.remove("Hello");
+
+        List<String> friends2 = new ArrayList<String>();
+        friends2.add("John");
+        friends2.add("Jak");
+        friends2.add("Jenny");
+        friends2.add("Joey");
+        friends2.add("Jordan");
+        friends2.add("Justin");
+        friends2.add("Jill");
+        friends2.add("Joe");
+
         Iterator<String> itr = friends.iterator();
         while(itr.hasNext()){
             String name = itr.next();
             System.out.println(name);
         }
-
+        System.out.println("Size is now: " + friends.size());
+        System.out.println(friends.containsAll(friends2));
 //        for(int i=0; i< friends.size(); i++){
 //            System.out.println(friends.get(i));
 //        }
