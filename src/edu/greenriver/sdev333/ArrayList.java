@@ -25,23 +25,30 @@ public class ArrayList<ItemType> implements List<ItemType>{
 
     @Override
     public boolean isEmpty() {
-        return false;
+        return size == 0;
+        /*
+        Or
+        if(size == 0) {
+            return true
+        } return false
+         */
     }
 
     @Override
     public boolean contains(ItemType item) {
+        int i = indexOf(item);
+        if (i != -1) {
+            return true;
+        }
         return false;
     }
 
     @Override
     public Iterator<ItemType> iterator() {
-        return null;
+        return new OurCustomIterator();
     }
 
-    @Override
-    public void add(ItemType item) {
-        // all above code works until I run out of room
-        // when size becomes the same as length
+    private void checkSize() {
         if(size == data.length) {
             // need to double up array size
             // Step 1 - create a new larger array
@@ -58,28 +65,56 @@ public class ArrayList<ItemType> implements List<ItemType>{
             // optional
             temp = null;
         } // end of if
+
+    }
+    @Override
+    public void add(ItemType item) {
+        checkSize();
         data[size] = item;
         size++;
     } // end of method
 
     @Override
     public void remove(ItemType item) {
-
+        int i = indexOf(item);
+        if(i != -1) {
+            // if within index use other remove method to do work
+            remove(i);
+        }
     }
 
     @Override
     public void clear() {
-
+        // lazy deletion
+        size = 0;
     }
 
     @Override
     public boolean containsAll(Collection<? extends ItemType> otherCollection) {
-        return false;
+        Iterator<ItemType> itr = (Iterator<ItemType>) otherCollection.iterator();
+        while(itr.hasNext()) {
+            ItemType itemToCheck = itr.next();
+            if(contains(itemToCheck)) {
+                return false;
+            }
+        }
+
+        return true;
+
+//        for (ItemType itemToCheck : otherCollection) {
+//            if(!contains(itemToCheck)) {
+//                return false;
+//            }
+//        } return true; this way is shorter
+
+        //throw new UnsupportedOperationException("Not Implemented"); // fail fast , fail loud
+        //return false;
+
     }
 
     @Override
     public void addAll(Collection<? extends ItemType> otherCollection) {
-
+        throw new UnsupportedOperationException("No. t gonna do it!");
     }
 
     @Override
@@ -94,27 +129,54 @@ public class ArrayList<ItemType> implements List<ItemType>{
 
     @Override
     public ItemType get(int index) {
-        return null;
+        if(index >= size || index < 0) {
+            throw new IndexOutOfBoundsException("Index is out of bound");
+        }
+        return data[index];
     }
 
     @Override
     public void set(int index, ItemType item) {
-
+        if(index >= size || index < 0) {
+            throw new IndexOutOfBoundsException("Index is out of bound");
+        }
+        data[index] = item;
     }
 
     @Override
     public void add(int index, ItemType item) {
+        if(item.equals(null)) {
+            throw new NullPointerException();
+        } else if (index >= size || index < 0) {
+            throw new IndexOutOfBoundsException();
+        }
+
+        checkSize();
+        for (int i = size; i > index; i--) {
+            data[i] = data[i-1];
+        }
+        data[index] = item;
+        size++;
 
     }
 
     @Override
     public void remove(int index) {
-
+        //shift values left to overwrite the item at index
+        for (int i = index; i < size - 1; i++) {
+            data[i] = data[i + 1];
+        }
+        size--;
     }
 
     @Override
     public int indexOf(ItemType item) {
-        return 0;
+
+       for (int i = 0; i < size; i++) {
+           if(item.equals(data[i])) {
+               return i;
+           }
+       } return  -1; // if not then return -1
     }
 
     @Override
@@ -124,6 +186,82 @@ public class ArrayList<ItemType> implements List<ItemType>{
 
     @Override
     public ListIterator<ItemType> listIterator() {
+
         return null;
     }
-}
+
+    private class OurCustomIterator implements Iterator<ItemType> {
+        // fields
+        private int currentPosition;
+
+        public OurCustomIterator() {
+            currentPosition = 0;
+        }
+        @Override
+        public boolean hasNext() {
+            return currentPosition < size();
+        }
+
+        @Override
+        public ItemType next() {
+            ItemType result = get(currentPosition);
+            currentPosition++;
+            return result;
+        }
+    } // end of OurCustomIterator class
+
+    private class SecondCustomIterator implements ListIterator<ItemType> {
+        // fancier Iterator-lets us go forwards and backwards
+        private int currentPosition;
+
+        public SecondCustomIterator() {
+            currentPosition = 0;
+        }
+        @Override
+        public boolean hasNext() {
+            return false;
+        }
+
+        @Override
+        public ItemType next() {
+            return null;
+        }
+
+        @Override
+        public boolean hasPrevious() {
+            // hasNext checked currentPosition with size
+            // hasPrevious check currentPosition against 0
+            return false;
+        }
+
+        @Override
+        public ItemType previous() {
+            return null;
+        }
+
+        @Override
+        public int nextIndex() {
+            return 0;
+        }
+
+        @Override
+        public int previousIndex() {
+            return 0;
+        }
+
+        @Override
+        public void remove() {
+
+        }
+
+        @Override
+        public void set(ItemType itemType) {
+
+        }
+
+        @Override
+        public void add(ItemType itemType) {
+
+        }
+    }
+}// end of ArrayList class
