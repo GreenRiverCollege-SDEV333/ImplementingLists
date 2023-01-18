@@ -17,7 +17,11 @@ public class ArrayList<ItemType> implements List<ItemType>{
         data = (ItemType[]) new Object[10];
         size = 0;
     }
+    public ArrayList(int size) {
+        this.size = size;
+        data = (ItemType[]) new Object[size];
 
+    }
     /**
      * Returns the number of items in this collection.
      *
@@ -147,7 +151,10 @@ public class ArrayList<ItemType> implements List<ItemType>{
      */
     @Override
     public void addAll(Collection<? extends ItemType> otherCollection) {
-
+        for (ItemType  item :
+            otherCollection) {
+            add(item);
+        }
     }
 
     /**
@@ -160,7 +167,10 @@ public class ArrayList<ItemType> implements List<ItemType>{
      */
     @Override
     public void removeAll(Collection<? extends ItemType> otherCollection) {
-
+        for (ItemType  item :
+                otherCollection) {
+            remove(item);
+        }
     }
 
     /**
@@ -175,7 +185,9 @@ public class ArrayList<ItemType> implements List<ItemType>{
     public void retainAll(Collection<? extends ItemType> otherCollection) {
 
     }
-
+    public boolean isValidIndex(int index){
+        return index < size;
+    }
     /**
      * Returns the item at the specified position in this list
      *
@@ -186,7 +198,7 @@ public class ArrayList<ItemType> implements List<ItemType>{
      */
     @Override
     public ItemType get(int index) {
-        if(index >= size){
+        if(!isValidIndex(index)){
             throw new ArrayIndexOutOfBoundsException();
         }else {
             return data[index];
@@ -206,7 +218,7 @@ public class ArrayList<ItemType> implements List<ItemType>{
      */
     @Override
     public void set(int index, ItemType item) {
-        if(index > size){
+        if(!isValidIndex(index)){
             throw new ArrayIndexOutOfBoundsException();
         }else {
             data[index] = item;
