@@ -51,6 +51,10 @@ public class ArrayList<ItemType> implements List<ItemType> {
      */
     @Override
     public boolean contains(ItemType item) {
+        int i = indexOf(item);
+        if ( i != -1 ) {
+            return true;
+        }
         return false;
     }
 
@@ -61,7 +65,8 @@ public class ArrayList<ItemType> implements List<ItemType> {
      */
     @Override
     public Iterator<ItemType> iterator() {
-        return null;
+
+        return new OurCustomIterator();
     }
 
     /**
@@ -75,23 +80,7 @@ public class ArrayList<ItemType> implements List<ItemType> {
     public void add(ItemType item) {
 
         // HOWEVER: when size becomes length - we run out of room
-        if (size == data.length){
-            // create new array, double the size, copy elements over
-
-            // create larger array twice the size as the current
-            ItemType[] temp = (ItemType[]) new Object[size * 2];
-
-            // copy items from data array to temp array
-            for (int i = 0; i < size; i++) {
-                temp[i] = data[i];
-            }
-
-            // repoint/reference data to point to temp array
-            data = temp;
-
-            // optional
-            temp = null;
-        }
+        checkSize();
 
         data[size] = item;
         size++;
@@ -107,7 +96,10 @@ public class ArrayList<ItemType> implements List<ItemType> {
      */
     @Override
     public void remove(ItemType item) {
-
+        int i = indexOf(item);
+        if( i != -1 ){
+            remove(i);
+        }
     }
 
     /**
@@ -130,7 +122,16 @@ public class ArrayList<ItemType> implements List<ItemType> {
      */
     @Override
     public boolean containsAll(Collection<? extends ItemType> otherCollection) {
-        return false;
+
+        Iterator<ItemType> itr = (Iterator<ItemType>) otherCollection.iterator();
+        while (itr.hasNext()){
+            ItemType itemToCheck = itr.next();
+            if (!contains(itemToCheck)){
+                return false;
+            }
+        }
+
+        return true;
     }
 
     /**
@@ -220,19 +221,55 @@ public class ArrayList<ItemType> implements List<ItemType> {
     @Override
     public void add(int index, ItemType item) {
     // focus on trying this one
+
+        checkSize();
+
+        for (int i = size; i >= index + 1; i--) {
+            data[i] = data[i - 1];
+        }
+        data[index] = item;
+        size++;
+
+
+//        if ( index < 0 || index >= size() ){
+//            throw new IndexOutOfBoundsException("Please enter a valid number");
+//        }
+//        if ( item == null ){
+//            throw new NullPointerException("Item cannot be null");
+//        }
+//
+//        // create larger array with one more index
+//
+//        // copy each element stopping before the indicated index
+//        ItemType[] temp = (ItemType[]) new Object[size + 1];
+//        for (int i = 0; i <= size; i++) {
+//            temp[i] = data[i];
+//
+//            if ( i == index ){
+//                // if i equals the indicated index, assign item to index
+//                temp[index] = item;
+//            }
+//            // if i is greater than the index, assign temp's current index value
+//            // to data's previous index's value
+//            else if ( i > index ){
+//                temp[i] = data[i - 1];
+//            }
+//        }
+//
+//        // increase size and repoint/reference data to point to temp array address
+//        size++;
+//        data = temp;
+
     }
 
-    /**
-     * Removes the element at the specified position in this list.
-     * Shifts any subsequent items to the left.
-     *
-     * @param index the index of the item to be removed
-     * @throws IndexOutOfBoundsException if the index is out of range
-     *                                   (index < 0 || index >= size())
-     */
+
     @Override
     public void remove(int index) {
-
+        // shift values left to overwrite the item at index
+        for (int i = index; i < size - 1; i++) {
+            data[i] = data[i + 1];
+        }
+        size--;
     }
 
     /**
@@ -247,7 +284,13 @@ public class ArrayList<ItemType> implements List<ItemType> {
      */
     @Override
     public int indexOf(ItemType item) {
-        return 0;
+        for (int i = 0; i < size; i++) {
+            if ( item.equals(data[i])){
+                return i;
+            }
+        }
+        // if we got here, it wasn't in the array
+        return -1;
     }
 
     /**
@@ -276,4 +319,168 @@ public class ArrayList<ItemType> implements List<ItemType> {
     public ListIterator<ItemType> listIterator() {
         return null;
     }
+
+    private void checkSize(){
+        // HOWEVER: when size becomes length - we run out of room
+        if (size == data.length){
+            // create new array, double the size, copy elements over
+
+            // create larger array twice the size as the current
+            ItemType[] temp = (ItemType[]) new Object[size * 2];
+
+            // copy items from data array to temp array
+            for (int i = 0; i < size; i++) {
+                temp[i] = data[i];
+            }
+
+            // repoint/reference data to point to temp array
+            data = temp;
+
+            // optional
+            temp = null;
+        }
+    }
+
+    private class OurCustomIterator implements Iterator<ItemType> {
+
+        //fields
+        private int currentPosition;
+
+
+        public OurCustomIterator(){
+            currentPosition = 0;
+        }
+
+        @Override
+        public boolean hasNext() {
+            return currentPosition < size();
+        }
+
+
+        @Override
+        public ItemType next() {
+            ItemType result = get(currentPosition);
+            currentPosition++;
+            return result;
+        }
+    }
+
+
+    // listIterator to work on
+    private class SecondCustomIterator implements ListIterator<ItemType> {
+        // fancier Iterator - lets us go forwards and backwards
+
+        private int currentPosition;
+
+        public SecondCustomIterator(){
+            currentPosition = 0;
+        }
+
+
+        @Override
+        public boolean hasNext() {
+            return currentPosition < size();
+        }
+
+
+        @Override
+        public ItemType next() {
+            ItemType result = get(currentPosition);
+            currentPosition++;
+            return result;        }
+
+
+        @Override
+        public boolean hasPrevious() {
+            // hasNext checked currentPosition with size
+            // hasPrevious check currentPosition against 0
+            return currentPosition > 0;
+        }
+
+        @Override
+        public ItemType previous() {
+            return null;
+        }
+
+        @Override
+        public int nextIndex() {
+            return 0;
+        }
+
+
+        @Override
+        public int previousIndex() {
+            return 0;
+        }
+
+        /**
+         * Removes from the list the last element that was returned by {@link
+         * #next} or {@link #previous} (optional operation).  This call can
+         * only be made once per call to {@code next} or {@code previous}.
+         * It can be made only if {@link #add} has not been
+         * called after the last call to {@code next} or {@code previous}.
+         *
+         * @throws UnsupportedOperationException if the {@code remove}
+         *                                       operation is not supported by this list iterator
+         * @throws IllegalStateException         if neither {@code next} nor
+         *                                       {@code previous} have been called, or {@code remove} or
+         *                                       {@code add} have been called after the last call to
+         *                                       {@code next} or {@code previous}
+         */
+        @Override
+        public void remove() {
+
+        }
+
+        /**
+         * Replaces the last element returned by {@link #next} or
+         * {@link #previous} with the specified element (optional operation).
+         * This call can be made only if neither {@link #remove} nor {@link
+         * #add} have been called after the last call to {@code next} or
+         * {@code previous}.
+         *
+         * @param itemType the element with which to replace the last element returned by
+         *                 {@code next} or {@code previous}
+         * @throws UnsupportedOperationException if the {@code set} operation
+         *                                       is not supported by this list iterator
+         * @throws ClassCastException            if the class of the specified element
+         *                                       prevents it from being added to this list
+         * @throws IllegalArgumentException      if some aspect of the specified
+         *                                       element prevents it from being added to this list
+         * @throws IllegalStateException         if neither {@code next} nor
+         *                                       {@code previous} have been called, or {@code remove} or
+         *                                       {@code add} have been called after the last call to
+         *                                       {@code next} or {@code previous}
+         */
+        @Override
+        public void set(ItemType itemType) {
+
+        }
+
+        /**
+         * Inserts the specified element into the list (optional operation).
+         * The element is inserted immediately before the element that
+         * would be returned by {@link #next}, if any, and after the element
+         * that would be returned by {@link #previous}, if any.  (If the
+         * list contains no elements, the new element becomes the sole element
+         * on the list.)  The new element is inserted before the implicit
+         * cursor: a subsequent call to {@code next} would be unaffected, and a
+         * subsequent call to {@code previous} would return the new element.
+         * (This call increases by one the value that would be returned by a
+         * call to {@code nextIndex} or {@code previousIndex}.)
+         *
+         * @param itemType the element to insert
+         * @throws UnsupportedOperationException if the {@code add} method is
+         *                                       not supported by this list iterator
+         * @throws ClassCastException            if the class of the specified element
+         *                                       prevents it from being added to this list
+         * @throws IllegalArgumentException      if some aspect of this element
+         *                                       prevents it from being added to this list
+         */
+        @Override
+        public void add(ItemType itemType) {
+
+        }
+    }
+
 }
