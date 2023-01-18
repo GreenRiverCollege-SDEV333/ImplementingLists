@@ -2,6 +2,7 @@ package edu.greenriver.sdev333;
 
 import java.util.Iterator;
 import java.util.ListIterator;
+import java.util.function.Consumer;
 
 public class ArrayList<ItemType> implements List<ItemType>{
 //WE NEED FIELDS
@@ -63,7 +64,7 @@ public class ArrayList<ItemType> implements List<ItemType>{
      */
     @Override
     public Iterator<ItemType> iterator() {
-        return null;
+        return new OurIterator();
     }
 
     /**
@@ -248,7 +249,12 @@ public class ArrayList<ItemType> implements List<ItemType>{
      */
     @Override
     public int indexOf(ItemType item) {
-        return 0;
+        for (int i = 0; i < size; i++) {
+            if (data[i].equals(item)) {
+                return i;
+            }
+        }
+        return -1;
     }
 
     /**
@@ -277,4 +283,35 @@ public class ArrayList<ItemType> implements List<ItemType>{
     public ListIterator<ItemType> listIterator() {
         return null;
     }
-}
+
+    private class OurIterator implements Iterator<ItemType>{
+        private int current;
+
+        public OurIterator() {
+            current = 0;
+        }
+
+        @Override
+        public boolean hasNext() {
+            return current < size;
+        }
+
+        @Override
+        public ItemType next() {
+            ItemType next = get(current);
+            current++;
+            return next;
+
+        }
+
+        @Override
+        public void remove() {
+            Iterator.super.remove();
+        }
+
+        @Override
+        public void forEachRemaining(Consumer<? super ItemType> action) {
+            Iterator.super.forEachRemaining(action);
+        }
+    }
+}//end of ArrayList
