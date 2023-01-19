@@ -26,6 +26,14 @@ public class ArrayList<ItemType> implements List<ItemType> {
 
 
     /**
+     * Method that resizes size of arraylist
+     * @param newSize - new size of arraylist
+     */
+    private void resize(int newSize){
+        size = newSize;
+    }
+
+    /**
      * Returns the number of items in this collection.
      *
      * @return the number of items in this collection
@@ -52,7 +60,7 @@ public class ArrayList<ItemType> implements List<ItemType> {
 
 
 
-    /** TODO --------------
+    /**
      * Returns true if this collection contains the specified item.
      *
      * @param item items whose presence in this collection is to be tested
@@ -337,7 +345,12 @@ public class ArrayList<ItemType> implements List<ItemType> {
      */
     @Override
     public int lastIndexOf(ItemType item) {
-        return 0;
+        for (int i = size - 1; i >= 0; i--) {
+            if (item.equals(data[i])){
+                return i;
+            }
+        }
+        return -1;
     }
 
     /**
