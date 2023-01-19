@@ -16,9 +16,22 @@ public class ArrayList<ItemType> implements List<ItemType> {
     private int size;
 
 
+    /**
+     * Constructor initializing private fields
+     */
     public ArrayList(){
         size = 0;
         data = (ItemType[]) new Object[10];
+    }
+
+    /**
+     * Second constructor that allows the client to ask for an initial capacity for
+     * the underlying data array (instead of using our default of 10)
+     * @param capacity the capacity
+     */
+    public ArrayList(int capacity){
+        size = 0;
+        data = (ItemType[]) new Object[capacity];
     }
 
     /**
@@ -51,6 +64,9 @@ public class ArrayList<ItemType> implements List<ItemType> {
      */
     @Override
     public boolean contains(ItemType item) {
+        if ( item == null ){
+            throw new NullPointerException("Item cannot be null");
+        }
         int i = indexOf(item);
         if ( i != -1 ) {
             return true;
@@ -96,6 +112,9 @@ public class ArrayList<ItemType> implements List<ItemType> {
      */
     @Override
     public void remove(ItemType item) {
+        if ( item == null ){
+            throw new NullPointerException("Item cannot be null");
+        }
         int i = indexOf(item);
         if( i != -1 ){
             remove(i);
@@ -184,7 +203,6 @@ public class ArrayList<ItemType> implements List<ItemType> {
             throw new IndexOutOfBoundsException("index is beyond size");
         }
         return data[index];
-
     }
 
     /**
@@ -222,6 +240,13 @@ public class ArrayList<ItemType> implements List<ItemType> {
     public void add(int index, ItemType item) {
     // focus on trying this one
 
+        if ( index < 0 || index >= size() ){
+            throw new IndexOutOfBoundsException("Please enter a valid number");
+        }
+        if ( item == null ){
+            throw new NullPointerException("Item cannot be null");
+        }
+
         checkSize();
 
         for (int i = size; i >= index + 1; i--) {
@@ -230,7 +255,7 @@ public class ArrayList<ItemType> implements List<ItemType> {
         data[index] = item;
         size++;
 
-
+// Personal try during class
 //        if ( index < 0 || index >= size() ){
 //            throw new IndexOutOfBoundsException("Please enter a valid number");
 //        }
@@ -284,6 +309,10 @@ public class ArrayList<ItemType> implements List<ItemType> {
      */
     @Override
     public int indexOf(ItemType item) {
+        if ( item == null ){
+            throw new NullPointerException("Item cannot be null");
+        }
+
         for (int i = 0; i < size; i++) {
             if ( item.equals(data[i])){
                 return i;
@@ -305,6 +334,9 @@ public class ArrayList<ItemType> implements List<ItemType> {
      */
     @Override
     public int lastIndexOf(ItemType item) {
+        if ( item == null ){
+            throw new NullPointerException("Item cannot be null");
+        }
         return 0;
     }
 
@@ -320,6 +352,9 @@ public class ArrayList<ItemType> implements List<ItemType> {
         return null;
     }
 
+    /**
+     * Resizing code ( creates larger array to add new objects to )
+     */
     private void checkSize(){
         // HOWEVER: when size becomes length - we run out of room
         if (size == data.length){

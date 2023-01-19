@@ -7,7 +7,6 @@ public class Main {
     public static void main(String[] args) {
 
         List<String> friends = new ArrayList<String>();
-        //System.out.println("Initial size is " + friends.size());
         friends.add("1");
         friends.add("2");
         friends.add("3");
@@ -20,23 +19,58 @@ public class Main {
         friends.add("10");
         friends.add("11");
 
+        // contains test code
+        System.out.println("");
+        System.out.println("CONTAINS TEST CODE............");
+        System.out.println("");
+        //String stringToTest = null;
+        String stringToTest = "10";
+        System.out.println("Does our list contain " + stringToTest + "? " +
+                friends.contains(stringToTest));
+
+        // add( item ) test code
+        // add( index, item ) test code
+        System.out.println("");
+        System.out.println("ADD TEST CODE............");
+        System.out.println("");
         System.out.println("Size before add: " + friends.size());
-        friends.add(10, "test");
-        System.out.println("Size AFTER add: " + friends.size());
+        int indexToTest = 10;
+        String stringToAddWithIndex = " added this string";
+        String stringToAddWithoutIndex = "This should be added at the end";
+
+        friends.add(indexToTest, stringToAddWithIndex);
+        friends.add(stringToAddWithoutIndex);
+        System.out.println("Size AFTER adds: " + friends.size());
         for (int i = 0; i < friends.size(); i++) {
             System.out.println(friends.get(i));
         }
 
-        // import java.util.Iterator;
-        // iterator test code
-//        Iterator<String> itr = friends.iterator();
-//        while (itr.hasNext()){
-//            String name = itr.next();
-//            System.out.println(name);
-//        }
-//
-//        for (String name : friends) {
-//            System.out.println(name);
-//        }
+
+        // remove test code
+        System.out.println("");
+        System.out.println("REMOVE TEST CODE............");
+        System.out.println("");
+        System.out.println("Size BEFORE remove: " + friends.size());
+        int indexToRemove = 0;
+        friends.remove(indexToRemove);
+        System.out.println("Size AFTER remove: " + friends.size());
+        for (int i = 0; i < friends.size(); i++) {
+            System.out.println(friends.get(i));
+        }
+
+        // get test code
+        // set test code
+        System.out.println("");
+        System.out.println("GET/SET TEST CODE............");
+        System.out.println("");
+        int indexToGet = 0;
+        System.out.println("Get item at index " + indexToGet +
+                            " = " + friends.get(indexToGet) );
+        int indexToSet = 0;
+        String newStringToSet = "Set this at index " + indexToSet;
+        friends.set(indexToSet, newStringToSet);
+        System.out.println("After set at index " + indexToGet + ": "
+                            + friends.get(indexToSet));
+
     }
 }
