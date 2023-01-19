@@ -3,6 +3,13 @@ import edu.greenriver.sdev333.*;
 import java.sql.Array;
 import java.util.Iterator;
 
+/**
+ * Main Class used to test functionality of ArrayList implementation.
+ * Inside the main() method are comments and code regarding the setup
+ * and testing for each given method.
+ *
+ * @author Paul Woods
+ */
 public class Main {
 
     private static void printIntList(List<Integer> l) {
@@ -12,44 +19,6 @@ public class Main {
         System.out.println();
     }
     public static void main(String[] args) {
-/*
-        System.out.println("Hello world!");
-
-        List<String> friends = new ArrayList<>();
-
-        System.out.println("initial size is " + friends.size());
-
-        friends.add("Jess");
-        friends.add("Tina");
-        friends.add("Josh");
-        friends.add("Susan");
-        friends.add("Dee");
-        friends.add("Tyler");
-        friends.add("Usman");
-        friends.add("Rose");
-        friends.add("Blanche");
-        friends.add("Dorothy");
-        friends.add("Sophia");
-
-        System.out.println("size is now " + friends.size());
-*/
-        /*
-        for (int i = 0; i < friends.size(); i++) {
-            System.out.print(friends.get(i) + " ");
-        }*/
-        /*
-        Iterator<String> itr = friends.iterator();
-        while(itr.hasNext()) {
-            String name = itr.next();
-            System.out.println(name);
-        }
-        */
-/*
-        // Testing iterator()
-        for (String s: friends) {
-            System.out.println(s + " ");
-        }
-*/
 
         System.out.println();
         System.out.println("Create list of integers, adding 10 elements, 1 .. 10");

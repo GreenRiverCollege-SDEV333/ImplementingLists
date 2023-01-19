@@ -10,6 +10,12 @@ import java.util.ListIterator;
  * corresponding Main class, with comments there regarding each
  * method tested.
  *
+ * Implemented and tested all listed methods except for hashCode().  I read in
+ * prior class notes from CS145 "If the .equals() method returns true on two objects,
+ * their hashCode() must also return the same value."  I am unsure how I can
+ * get two 'equal' lists to return the same hashCode if they have equal objects,
+ * so am going to forgo that method for now.
+ *
  * @author Paul Woods
  *
  * @param <ItemType>
