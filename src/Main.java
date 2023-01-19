@@ -1,10 +1,20 @@
 import edu.greenriver.sdev333.*;
 
-public class Main {
-    public static void main(String[] args) {
+import java.sql.Array;
+import java.util.Iterator;
 
-        System.out.println("Hello world!");
+public class Main {
+
+    private static void printIntList(List<Integer> l) {
+        for(int i: l) {
+            System.out.print(i + " ");
+        }
+        System.out.println();
+    }
+    public static void main(String[] args) {
 /*
+        System.out.println("Hello world!");
+
         List<String> friends = new ArrayList<>();
 
         System.out.println("initial size is " + friends.size());
@@ -22,11 +32,32 @@ public class Main {
         friends.add("Sophia");
 
         System.out.println("size is now " + friends.size());
- */
+*/
+        /*
+        for (int i = 0; i < friends.size(); i++) {
+            System.out.print(friends.get(i) + " ");
+        }*/
+        /*
+        Iterator<String> itr = friends.iterator();
+        while(itr.hasNext()) {
+            String name = itr.next();
+            System.out.println(name);
+        }
+        */
+/*
+        // Testing iterator()
+        for (String s: friends) {
+            System.out.println(s + " ");
+        }
+*/
+
         System.out.println();
         System.out.println("Create list of integers, adding 10 elements, 1 .. 10");
         List<Integer> intList = new ArrayList<>();
 
+        System.out.println("testing isEmpty on empty list, returns: " + intList.isEmpty());
+
+        // tests .add()
         intList.add(1);
         intList.add(2);
         intList.add(3);
@@ -38,64 +69,175 @@ public class Main {
         intList.add(9);
         intList.add(10);
 
-        System.out.println("Size: " + intList.size());
-        for (int i = 0; i < intList.size(); i++) {
-            System.out.print(intList.get(i) + " ");
-        }
+        System.out.println("testing isEmpty on a list with 10 items, returns: " + intList.isEmpty());
         System.out.println();
+        System.out.println("Testing get(0):, should return 1: " + intList.get(0));
+        System.out.println();
+        System.out.println("testing contains(), looking for int value 5");
+        System.out.println("result of contains(Integer.valueOf(5)): " + intList.contains(Integer.valueOf(5)));
+        System.out.println("testing contains(), looking for int value of 90");
+        System.out.println("result of contains(Integer.valueOf(90)): " + intList.contains(Integer.valueOf(90)));
         System.out.println();
 
+        System.out.println("Printing list while testing .iterator() ...");
+        // tests .iterator()
+        printIntList(intList);
+        System.out.println();
+
+        // test .add() again
         System.out.println("Adding 20 to list");
         intList.add(20);
         System.out.println("Size: " + intList.size());
-        for (int i = 0; i < intList.size(); i++) {
-            System.out.print(intList.get(i) + " ");
-        }
-        System.out.println();
+        printIntList(intList);
         System.out.println();
 
-
+        // test .set(index, value)
         System.out.println("Setting index 8 (#9) to 90");
         intList.set(8, 90);
         System.out.println("Size: " + intList.size());
-        for (int i = 0; i < intList.size(); i++) {
-            System.out.print(intList.get(i) + " ");
-        }
-        System.out.println();
+        printIntList(intList);
         System.out.println();
 
-        System.out.println("Set 40 at index 4");
+        // test .add(index, value)
+        System.out.println("Adding 40 at index 4");
         intList.add(4,40);
         System.out.println("Size: " + intList.size());
-        for (int i = 0; i < intList.size(); i++) {
-            System.out.print(intList.get(i) + " ");
-        }
-        System.out.println();
+        printIntList(intList);
         System.out.println();
 
+        // test .indexOf(val)
         System.out.println("Testing indexOf(item), index of 90 should be 9.");
         System.out.println(intList.indexOf(90));
+        System.out.println();
+
+        // test .indexOf(val)
         System.out.println("Testing indexOf(item), index of 3 should be 2.");
         System.out.println(intList.indexOf(3));
         System.out.println();
-        System.out.println();
 
-
-        System.out.println("Adding 5, then 30, then 35 to list");
+        // add 5 again, and reprint list
+        System.out.println("Adding 5 to end of list for next test");
         intList.add(5);
-        intList.add(30);
-        intList.add(35);
-        System.out.println("Size: " + intList.size());
-        for (int i = 0; i < intList.size(); i++) {
-            System.out.print(intList.get(i) + " ");
-        }
-        System.out.println();
+        printIntList(intList);
         System.out.println();
 
+        // test .lastIndexOf(val)
         System.out.println("Finding last index of 5, should be 12");
         System.out.println("Calculated lastIndex of 5: " + intList.lastIndexOf(5));
+        System.out.println("Finding last index of 40, should be 4");
+        System.out.println("Calculated lastIndex of 40: " + intList.lastIndexOf(40));
         System.out.println();
+
+        printIntList(intList);
+
+        System.out.println("Testing remove(index), removing index 4 (#40)");
+        intList.remove(4);
+        printIntList(intList);
         System.out.println();
+
+        // test containsAll()
+        List<Integer> newList = new ArrayList<>();
+        newList.add(1);
+        newList.add(8);
+        System.out.println("Testing containsAll() with a sublist of 1 and 8, should return true");
+        System.out.println("containsAll() result: " + intList.containsAll(newList));
+        newList.add(999);
+        System.out.println("Testing containsAll() with a sublist of 1, 8, and 999 should return false");
+        System.out.println("containsAll() result: " + intList.containsAll(newList));
+        printIntList(intList);
+        System.out.println();
+
+        // tests removeItem(item)
+        System.out.println("Testing remove(item), removing #90");
+        intList.remove(Integer.valueOf(90));
+        // NOTE - Use the Integer.valueOf() static method to remove a value as <ItemType> from ArrayList
+
+        printIntList(intList);
+        System.out.println();
+
+
+
+        // test clear()
+        System.out.println();
+        System.out.println("Testing clear(), printed list");
+        intList.clear();
+        printIntList(intList);
+        System.out.println();
+
+        // testing 2nd constructor w/ initial parameter
+        intList = new ArrayList<>(20);
+        intList.add(1);
+        intList.add(2);
+        intList.add(3);
+        intList.add(4);
+        intList.add(5);
+        intList.add(6);
+        intList.add(7);
+        intList.add(8);
+        intList.add(9);
+        intList.add(10);
+        System.out.println("Testing 2nd constructor w/ initial size parameter, should have 1..10 entered.");
+        printIntList(intList);
+        System.out.println();
+
+        List<Integer> tempList = new ArrayList<>();
+        tempList.add(50);
+        tempList.add(51);
+        tempList.add(52);
+        tempList.add(53);
+        tempList.add(54);
+        tempList.add(55);
+        System.out.println("Testing addAll(), adding a new collection that contains 50 ... 55 to list");
+        intList.addAll(tempList);
+        printIntList(intList);
+        System.out.println();
+
+        // testing equals() method
+        System.out.println("Testing equals() method, original list vs tempList (50..55), should be false");
+        System.out.println("Result of intList.equals(tempList): " + intList.equals(tempList));
+        System.out.println("Testing equals method, tempList (50..55) vs bList (50..55), should be true");
+        List<Integer> bList = new ArrayList<>();
+        bList.add(50);
+        bList.add(51);
+        bList.add(52);
+        bList.add(53);
+        bList.add(54);
+        bList.add(55);
+        System.out.println("Result of tempList.equals(bList): " + tempList.equals(bList));
+
+        System.out.println();
+        System.out.println("Original list again:");
+        printIntList(intList);
+        System.out.println();
+
+        List<Integer> cList = new ArrayList<>();
+        cList.add(1);
+        cList.add(5);
+        cList.add(9);
+        cList.add(52);
+        cList.add(55);
+
+        // testing removeAll(collection)
+        System.out.println("Will be removing cList from our original list, cList is:");
+        printIntList(cList);
+        System.out.println("Testing removeAll(collection), removing cList from intList.");
+        intList.removeAll(cList);
+        System.out.println("Resulting list: ");
+        printIntList(intList);
+        System.out.println();
+
+        // testing retainAll()
+        System.out.println("We are going to test retainAll(), but lets add items back to our original list.");
+        System.out.println("Original list again:");
+        intList.addAll(cList);
+        printIntList(intList);
+        System.out.println("cList again is:");
+        printIntList(cList);
+        System.out.println("We are going to retain only the items in cList that are in our original list");
+        intList.retainAll(cList);
+        System.out.println("Resulting original list:");
+        printIntList(intList);
+
 
     }
 }
