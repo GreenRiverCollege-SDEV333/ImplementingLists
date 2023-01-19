@@ -20,6 +20,11 @@ public class ArrayList<ItemType> implements List<ItemType> {
         data = (ItemType[]) new Object[10];
     }
 
+    public ArrayList(int arraySize) {
+        size = 0;
+        data = (ItemType[]) new Object[arraySize];
+    }
+
     /**
      * Returns the number of items in this collection.
      *
@@ -150,8 +155,9 @@ public class ArrayList<ItemType> implements List<ItemType> {
      */
     @Override
     public void addAll(Collection<? extends ItemType> otherCollection) {
-        throw new UnsupportedOperationException("Not implemented");
-
+        for (ItemType it : otherCollection) {
+            add(it);
+        }
     }
 
     /**
@@ -164,7 +170,11 @@ public class ArrayList<ItemType> implements List<ItemType> {
      */
     @Override
     public void removeAll(Collection<? extends ItemType> otherCollection) {
-
+        for (ItemType it : otherCollection) {
+            if (contains(it)) {
+                remove(it);
+            }
+        }
     }
 
     /**
@@ -177,7 +187,17 @@ public class ArrayList<ItemType> implements List<ItemType> {
      */
     @Override
     public void retainAll(Collection<? extends ItemType> otherCollection) {
-
+        for (ItemType it : data) {
+            int match = 0;
+            for (ItemType other : otherCollection) {
+                if (it.equals(other)) {
+                    match++;
+                }
+            }
+            if (match < 1) {
+                remove(it);
+            }
+        }
     }
 
     /**
@@ -256,7 +276,7 @@ public class ArrayList<ItemType> implements List<ItemType> {
         if (index >= size) {
             throw new IndexOutOfBoundsException("Index out of bounds");
         }
-        for (int i = index; i < data.length; i++) {
+        for (int i = index; i < size - 1; i++) {
             data[i] = data[i+1];
         }
         size--;
@@ -288,14 +308,30 @@ public class ArrayList<ItemType> implements List<ItemType> {
      * in this list, or -1 if this list does not contain the item.
      *
      * @param item the item to search for
-     * @return the index of the first occurrence of the specified item
+     * @return the index of the last occurrence of the specified item
      * in this list, or -1 if this list does not contain the item
      * @throws NullPointerException if the specified item is null and this
      *                              list does not permit null items
      */
     @Override
     public int lastIndexOf(ItemType item) {
-        return 0;
+        int lastIndex = -1;
+        int occurrences = 0;
+        int matches = 0;
+        for (ItemType it : data) {
+            if (item.equals(it)) {
+                occurrences++;
+            }
+        }
+        while (matches != occurrences) {
+            for (int i = 0; i < size; i++) {
+                if (data[i].equals(item)) {
+                    lastIndex = i;
+                    matches++;
+                }
+            }
+        }
+        return lastIndex;
     }
 
     /**
