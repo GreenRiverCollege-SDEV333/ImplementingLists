@@ -342,7 +342,6 @@ public class ArrayList<ItemType> implements List<ItemType> {
      * (in proper sequence)
      */
     @Override
-    // not complete
     public ListIterator<ItemType> listIterator() {
         return null;
     }
