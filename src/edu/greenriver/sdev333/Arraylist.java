@@ -63,7 +63,7 @@ public class Arraylist<ItemType> implements List<ItemType>{
         // create an enhanced for loop to check each item in the list for the item being passed through
         // to the contains method
         for (ItemType E : data) {
-            if (E.equals(item))
+            if (E != null && E.equals(item))
                 return true;
         }
         return false;
@@ -116,9 +116,6 @@ public class Arraylist<ItemType> implements List<ItemType>{
     }
 
 
-
-
-
     /**
      * Removes a single instance of the specified item from this collection,
      * if it is present.
@@ -135,7 +132,7 @@ public class Arraylist<ItemType> implements List<ItemType>{
                 for (int j = i; j < size -1; j++) {
                     data[j] = data[j +1];
                 }
-               data[size-1] = null;
+                data[size-1] = null;
                 size--;
 
             }
@@ -191,7 +188,10 @@ public class Arraylist<ItemType> implements List<ItemType>{
      */
     @Override
     public void addAll(Collection<? extends ItemType> otherCollection) {
-        throw new UnsupportedOperationException(" Not Implemented");
+        for(ItemType itemToAdd : otherCollection){
+            add(itemToAdd);
+        }
+        //throw new UnsupportedOperationException(" Not Implemented");
     }
 
     /**
@@ -204,7 +204,9 @@ public class Arraylist<ItemType> implements List<ItemType>{
      */
     @Override
     public void removeAll(Collection<? extends ItemType> otherCollection) {
-
+        for(ItemType itemToAdd : otherCollection){
+            remove(itemToAdd);
+        }
     }
 
     /**
@@ -272,45 +274,45 @@ public class Arraylist<ItemType> implements List<ItemType>{
     public void add(int index, ItemType item) {
 
 
-            checkSize();
-            for (int i = size ; i >= index +1; i--) {
-                data[i] = data[i-1];
+        checkSize();
+        for (int i = size ; i >= index +1; i--) {
+            data[i] = data[i-1];
 
 
-            }
-            data[index] = item;
-            size++;
         }
+        data[index] = item;
+        size++;
+    }
 
 
-        /**
-         * Removes the element at the specified position in this list.
-         * Shifts any subsequent items to the left.
-         *
-         * @param index the index of the item to be removed
-         * @throws IndexOutOfBoundsException if the index is out of range
-         *                                   (index < 0 || index >= size())
-         */
-        @Override
-        public void remove ( int index){
+    /**
+     * Removes the element at the specified position in this list.
+     * Shifts any subsequent items to the left.
+     *
+     * @param index the index of the item to be removed
+     * @throws IndexOutOfBoundsException if the index is out of range
+     *                                   (index < 0 || index >= size())
+     */
+    @Override
+    public void remove ( int index){
 
-            //create a loop to iterate through the array
-            for (int i = 0; i < size; i++) {
-                // conditional looks to see if the parameter passed is in the array
-                if (i == index) {
-                    // if the parameter exists in the array, we iterate through the list again, as many times as there are elements in our array
-                    for (int j = i; j < size - 1; j++) {
-                        // we replace the element occupying the index we passed as parameter with the next element in line, and we shift all elements toward the head of the array
-                        data[j] = data[j + 1];
-                    }
-                    // after all items have been shift, we decrement the size of the array list
-                    data[size - 1] = null;
-                    size--;
-
+        //create a loop to iterate through the array
+        for (int i = 0; i < size; i++) {
+            // conditional looks to see if the parameter passed is in the array
+            if (i == index) {
+                // if the parameter exists in the array, we iterate through the list again, as many times as there are elements in our array
+                for (int j = i; j < size - 1; j++) {
+                    // we replace the element occupying the index we passed as parameter with the next element in line, and we shift all elements toward the head of the array
+                    data[j] = data[j + 1];
                 }
+                // after all items have been shift, we decrement the size of the array list
+                data[size - 1] = null;
+                size--;
 
             }
+
         }
+    }
 
 
     /**
@@ -337,7 +339,7 @@ public class Arraylist<ItemType> implements List<ItemType>{
                 result = -1;
             }
         }
-            return result;
+        return result;
     }
 
     /**
@@ -352,7 +354,16 @@ public class Arraylist<ItemType> implements List<ItemType>{
      */
     @Override
     public int lastIndexOf(ItemType item) {
-        return 0;
+        int lastIndex = -1;
+        for (int i = size-1; i >= 0 ; i--) {
+            if(data[i].equals(item)){
+                lastIndex = i;
+                break;
+
+            }
+
+        }
+        return lastIndex;
     }
 
     /**
@@ -481,4 +492,3 @@ public class Arraylist<ItemType> implements List<ItemType>{
         return sb.toString();
     }
 }
-
