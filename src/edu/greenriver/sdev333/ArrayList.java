@@ -345,7 +345,6 @@ public class ArrayList<ItemType> implements List<ItemType> {
     public ListIterator<ItemType> listIterator() {
         return null;
     }
-
     private class OurCustomIterator implements Iterator<ItemType> {
         // fields
         private int currentPosition;
