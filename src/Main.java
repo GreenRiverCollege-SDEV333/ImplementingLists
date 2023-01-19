@@ -11,9 +11,12 @@ public class Main {
         friends.add("Tina");
         friends.add("Susan");
         friends.add(0,"Bob");
+        friends.add("Bob");
+        friends.add("Bob");
 
         System.out.println(friends.get(0));
         System.out.println("Size is now " + friends.size());
+        System.out.println("Last Index of Bob: "+friends.lastIndexOf("Bob"));
 
         // friends .add all will cause an intentional crash
 
@@ -25,11 +28,11 @@ public class Main {
         Iterator<String> itr = friends.iterator();
         while (itr.hasNext()) {
             String name = itr.next();
-            System.out.println(name);
+          //  System.out.println(name);
         }
 
         for(String name:friends) {
-            System.out.println(name);
+            // System.out.println(name);
         }
     } // end of main method
  } // end of main class

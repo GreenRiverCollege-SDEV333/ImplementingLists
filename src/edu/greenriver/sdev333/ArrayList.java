@@ -1,5 +1,4 @@
 package edu.greenriver.sdev333;
-
 import java.util.Iterator;
 import java.util.ListIterator;
 
@@ -16,6 +15,10 @@ public class ArrayList<ItemType> implements List<ItemType>{
     public ArrayList() {
         size = 0;
         data = (ItemType[]) new Object[10];
+    }
+    public ArrayList(int capacity) {
+        size = 0;
+        data = (ItemType[]) new Object[capacity];
     }
 
     @Override
@@ -181,9 +184,12 @@ public class ArrayList<ItemType> implements List<ItemType>{
 
     @Override
     public int lastIndexOf(ItemType item) {
-        return 0;
+        for (int i = size ; i >= 0; i--) {
+            if(item.equals(data[i])) {
+                return i;
+            }
+        } return - 1;
     }
-
     @Override
     public ListIterator<ItemType> listIterator() {
 
@@ -263,5 +269,6 @@ public class ArrayList<ItemType> implements List<ItemType>{
         public void add(ItemType itemType) {
 
         }
+
     }
 }// end of ArrayList class
