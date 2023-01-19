@@ -1,8 +1,5 @@
 import edu.greenriver.sdev333.*;
 
-import java.sql.Array;
-import java.util.Iterator;
-
 /**
  * Main Class used to test functionality of ArrayList implementation.
  * Inside the main() method are comments and code regarding the setup
@@ -99,6 +96,7 @@ public class Main {
 
         printIntList(intList);
 
+        // testing remove(index)
         System.out.println("Testing remove(index), removing index 4 (#40)");
         intList.remove(4);
         printIntList(intList);
@@ -124,8 +122,6 @@ public class Main {
         printIntList(intList);
         System.out.println();
 
-
-
         // test clear()
         System.out.println();
         System.out.println("Testing clear(), printed list");
@@ -149,6 +145,7 @@ public class Main {
         printIntList(intList);
         System.out.println();
 
+        // testing addAll(collection)
         List<Integer> tempList = new ArrayList<>();
         tempList.add(50);
         tempList.add(51);

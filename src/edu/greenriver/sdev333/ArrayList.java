@@ -2,7 +2,6 @@ package edu.greenriver.sdev333;
 
 import java.util.Iterator;
 import java.util.ListIterator;
-//import java.util.function.Consumer;
 
 /**
  * This class implements the List interface in the Java collections
