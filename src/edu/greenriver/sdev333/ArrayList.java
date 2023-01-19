@@ -163,9 +163,12 @@ public class ArrayList<ItemType> implements List<ItemType> {
      */
     @Override
     public void addAll(Collection<? extends ItemType> otherCollection) {
-        //Fail Fast and Loud
-        throw new UnsupportedOperationException("Not Implemented");
-        //        return false;
+        for (ItemType name : otherCollection
+             ) {
+            checkSize();
+            add(name);
+        }
+
     }
 
     /**
@@ -178,7 +181,11 @@ public class ArrayList<ItemType> implements List<ItemType> {
      */
     @Override
     public void removeAll(Collection<? extends ItemType> otherCollection) {
-
+        for (ItemType name : otherCollection
+        ) {
+            checkSize();
+            remove(name);
+        }
     }
 
     /**
@@ -191,6 +198,7 @@ public class ArrayList<ItemType> implements List<ItemType> {
      */
     @Override
     public void retainAll(Collection<? extends ItemType> otherCollection) {
+        //if item in other collection do nothing if item not in other collection remove
 
     }
 
@@ -320,7 +328,7 @@ public class ArrayList<ItemType> implements List<ItemType> {
      */
     @Override
     public ListIterator<ItemType> listIterator() {
-        return null;
+        return new secondCustomIterator();
     }
 
     private class OurCustomIterator implements Iterator<ItemType>{

@@ -124,10 +124,32 @@ class ArrayListTest {
 
     @Test
     void addAll() {
+        List<String> nemeses = new ArrayList<String>();
+        nemeses.add("BR");
+        nemeses.add("H2");
+        List<String> friends = new ArrayList<String>();
+        friends.add("Jess");
+        friends.add("Tina");
+        friends.add("Josh");
+        assertEquals(3,friends.size());
+        friends.addAll(nemeses);
+        assertEquals(5,friends.size());
     }
 
     @Test
     void removeAll() {
+        List<String> nemeses = new ArrayList<String>();
+        nemeses.add("BR");
+        nemeses.add("H2");
+        List<String> friends = new ArrayList<String>();
+        friends.add("Jess");
+        friends.add("Tina");
+        friends.add("Josh");
+        friends.add("BR");
+        friends.add("H2");
+        assertEquals(5,friends.size());
+        friends.removeAll(nemeses);
+        assertEquals(3,friends.size());
     }
 
     @Test
@@ -208,5 +230,6 @@ class ArrayListTest {
 
     @Test
     void listIterator() {
+        //not sure how to test this
     }
 }
