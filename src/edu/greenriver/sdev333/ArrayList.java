@@ -4,6 +4,14 @@ import java.util.Iterator;
 import java.util.ListIterator;
 import java.util.function.Consumer;
 
+/**
+ * @author Katherine Watkins
+ * SDEV 333
+ * 01/09/2023
+ * Building ArrayList Class
+ * @param <ItemType> = type stored in ArrayList
+ */
+
 public class ArrayList<ItemType> implements List<ItemType>{
 //WE NEED FIELDS
 
@@ -13,18 +21,73 @@ public class ArrayList<ItemType> implements List<ItemType>{
     //size (# of spots being used by data array)
     private int size;
 
+    /**
+     * constructor with no variables passed in for length
+     */
     public ArrayList() {
         data = (ItemType[]) new Object[10];
         size = 0;
     }
+
+    /**
+     * constructor
+     * @param size = length of ArrayList to be made
+     */
     public ArrayList(int size) {
         this.size = size;
         data = (ItemType[]) new Object[size];
 
     }
+
     /**
-     * Returns the number of items in this collection.
-     *
+     * HELPER METHODS
+     */
+
+
+    /**
+     * helper method to check if array is at max capacity,
+     * if so it will double the array length
+     */
+    private void checkSize(){
+        if(size == data.length){
+            //create larger array
+            ItemType[] temp = (ItemType[]) new Object[(size * 2)];
+
+            //copy data items to temp
+            for(int i =0; i < size; i++){
+                temp [i] = data[i];
+            }
+
+            //repoint data to temp
+            data = temp;
+
+        }
+    }
+
+    /**
+     * helper method to check if item passed into methods is null
+     * @param item item to be checked if null
+     */
+    private boolean isNull(ItemType item){
+        if(item == null){
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * helper method to check if index is valid
+     * @param index index to be checked
+     * @return returns true if index is within array limits
+     */
+
+    public boolean isValidIndex(int index){
+        return (index < size && index >= 0);
+    }
+
+
+
+    /**
      * @return the number of items in this collection
      */
     @Override
@@ -33,8 +96,6 @@ public class ArrayList<ItemType> implements List<ItemType>{
     }
 
     /**
-     * Returns true if this collection contains no items.
-     *
      * @return true if this collection contains no items
      */
     @Override
@@ -52,6 +113,9 @@ public class ArrayList<ItemType> implements List<ItemType>{
      */
     @Override
     public boolean contains(ItemType item) {
+        if(isNull(item)){
+            throw new NullPointerException();
+        };
         if(indexOf(item) != -1){
             return true;
         }
@@ -67,21 +131,8 @@ public class ArrayList<ItemType> implements List<ItemType>{
     public Iterator<ItemType> iterator() {
         return new OurIterator();
     }
-    private void checkSize(){
-        if(size == data.length){
-            //create larger array
-            ItemType[] temp = (ItemType[]) new Object[(size * 2)];
 
-            //copy data items to temp
-            for(int i =0; i < size; i++){
-                temp [i] = data[i];
-            }
 
-            //repoint data to temp
-            data = temp;
-
-        }
-    }
     /**
      * Adds the specified item to the collection.
      *
@@ -109,6 +160,9 @@ public class ArrayList<ItemType> implements List<ItemType>{
     //do this one
     @Override
     public void remove(ItemType item) {
+        if(isNull(item)){
+            throw new NullPointerException();
+        };
         int index = indexOf(item);
         if(index != -1) {
             remove(index);
@@ -181,13 +235,23 @@ public class ArrayList<ItemType> implements List<ItemType>{
      * @param otherCollection collection containing elements to be retained in
      *                        this collection
      */
+
     @Override
     public void retainAll(Collection<? extends ItemType> otherCollection) {
+        ItemType[] temp = (ItemType[]) new Object[10];
+        int tempSize = 0;
+        for (ItemType  item :
+                otherCollection) {
+            if(contains(item)) {
+                temp[tempSize] = item;
+                tempSize++;
+            }
+        }
+        data = temp;
+        size = tempSize;
+    }
 
-    }
-    public boolean isValidIndex(int index){
-        return index < size;
-    }
+
     /**
      * Returns the item at the specified position in this list
      *
@@ -218,6 +282,9 @@ public class ArrayList<ItemType> implements List<ItemType>{
      */
     @Override
     public void set(int index, ItemType item) {
+        if(isNull(item)){
+            throw new NullPointerException();
+        };
         if(!isValidIndex(index)){
             throw new ArrayIndexOutOfBoundsException();
         }else {
@@ -239,6 +306,12 @@ public class ArrayList<ItemType> implements List<ItemType>{
      */
     @Override
     public void add(int index, ItemType item) {
+        if(!isValidIndex(index)){
+            throw new ArrayIndexOutOfBoundsException();
+        }
+        if(isNull(item)){
+            throw new NullPointerException();
+        };
         checkSize();
         for (int i = size; i >= index + 1; i--) {
             data[i] = data[i - 1];
@@ -257,6 +330,9 @@ public class ArrayList<ItemType> implements List<ItemType>{
      */
     @Override
     public void remove(int index) {
+        if(!isValidIndex(index)){
+            throw new ArrayIndexOutOfBoundsException();
+        }
         for (int i = index; i < size-1; i++){
             data[i] = data[i+1];
         }
