@@ -78,21 +78,25 @@ public class ArrayList<ItemType> implements List<ItemType> {
     private void checkSize() {
         if (size == data.length) {
             // resize up (double up the array size)
-
-            // Step 1 - create a new larger array
-            ItemType[] temp = (ItemType[]) new Object[size * 2];
-
-            // Step 2 - copy items from data to temp
-            for (int i = 0; i < size; i++) {
-                temp[i] = data[i];
-            }
-
-            // Step 3 - repoint/refererence data to point to new array
-            data = temp;
-
-            // Optional:
-            temp = null;
+            resize(size*2);
         } // end of if (need to resize)
+    }
+
+    private void resize(int newSize){
+        // Step 1 - create a new larger array
+        ItemType[] temp = (ItemType[]) new Object[newSize];
+
+        // Step 2 - copy items from data to temp
+        for (int i = 0; i < size; i++) {
+            temp[i] = data[i];
+        }
+
+        // Step 3 - repoint/refererence data to point to new array
+        data = temp;
+
+
+        // Optional:
+        temp = null;
     }
 
     /**
@@ -110,6 +114,8 @@ public class ArrayList<ItemType> implements List<ItemType> {
         data[size] = item;
         size++;
     } // end of method
+
+
 
     /**
      * Removes a single instance of the specified item from this collection,
@@ -187,13 +193,6 @@ public class ArrayList<ItemType> implements List<ItemType> {
         }
     }
 
-    public boolean equals(Object other){
-        if (other == this){
-            return true;
-        } else {
-            return false;
-        }
-    }
 
     /**
      * Removes all of this collection's items that are also contained in the
@@ -221,6 +220,14 @@ public class ArrayList<ItemType> implements List<ItemType> {
 
     }
 
+    private boolean isValidIndex(int index){
+        if (index < 0 || index >= size){
+            return true;
+        }else {
+            return false;
+        }
+    }
+
     /**
      * Returns the item at the specified position in this list
      *
@@ -231,7 +238,7 @@ public class ArrayList<ItemType> implements List<ItemType> {
      */
     @Override
     public ItemType get(int index) {
-        if (index >= size) {
+        if (isValidIndex(index)) {
             throw new IndexOutOfBoundsException("index is beyond size");
         }
 
@@ -349,7 +356,7 @@ public class ArrayList<ItemType> implements List<ItemType> {
      */
     @Override
     public ListIterator<ItemType> listIterator() {
-        return (ListIterator<ItemType>) new OurCustomIterator();
+        return new SecondCustomIterator();
     }
 
 
@@ -377,6 +384,7 @@ public class ArrayList<ItemType> implements List<ItemType> {
     private class SecondCustomIterator implements ListIterator<ItemType> {
         // fancier Iterator - lets us go forwards and backwards
         private int currentPosition;
+        private int previousPosition = size -1;
 
         public SecondCustomIterator() {
             currentPosition = 0;
@@ -384,49 +392,53 @@ public class ArrayList<ItemType> implements List<ItemType> {
 
         @Override
         public boolean hasNext() {
-            return false;
+            return currentPosition < size();
         }
 
         @Override
         public ItemType next() {
-            return null;
+            ItemType result = get(currentPosition);
+            nextIndex();
+            return result;
         }
 
         @Override
         public boolean hasPrevious() {
             // hasNext checked currentPosition with size
             // hasPrevious check currentPosition against 0
-            return false;
+            return previousPosition >= 0;
         }
 
         @Override
         public ItemType previous() {
-            return null;
+            ItemType result = get(previousPosition);
+            previousIndex();
+            return result;
         }
 
         @Override
         public int nextIndex() {
-            return 0;
+            return currentPosition++;
         }
 
         @Override
         public int previousIndex() {
-            return 0;
+            return previousPosition--;
         }
 
         @Override
         public void remove() {
-
+            ArrayList.this.remove(data[size]);
         }
 
         @Override
         public void set(ItemType itemType) {
-
+            data[size] = itemType;
         }
 
         @Override
         public void add(ItemType itemType) {
-
+            data[size] = itemType;
         }
     }
 
