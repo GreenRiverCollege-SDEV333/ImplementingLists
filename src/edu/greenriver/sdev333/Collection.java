@@ -1,4 +1,4 @@
-/*
+package edu.greenriver.sdev333;/*
  * Copyright (c) 1997, 2018, Oracle and/or its affiliates. All rights reserved.
  * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS FILE HEADER.
  *
@@ -23,8 +23,6 @@
  * questions.
  */
 
-package edu.greenriver.sdev333;
-
 import java.util.Iterator;
 
 /**
@@ -36,7 +34,7 @@ import java.util.Iterator;
  * <p>This is the root interface in the collection hierarchy.</p>
  *
  * <p>edu.greenriver.sdev333.Collection is a modified subset of
- * java.util.Collection used for teaching and learning purposes only</p>
+ * java.util.edu.greenriver.sdev333.Collection used for teaching and learning purposes only</p>
  *
  * @param <ItemType> the data type of the individual items in this collection
  *

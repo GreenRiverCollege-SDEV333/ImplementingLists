@@ -1,4 +1,4 @@
-/*
+package edu.greenriver.sdev333;/*
  * Copyright (c) 1997, 2018, Oracle and/or its affiliates. All rights reserved.
  * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS FILE HEADER.
  *
@@ -23,7 +23,7 @@
  * questions.
  */
 
-package edu.greenriver.sdev333;
+import edu.greenriver.sdev333.Collection;
 
 import java.util.ListIterator;
 
@@ -37,22 +37,22 @@ import java.util.ListIterator;
  *
  * <p>Unlike sets, lists typically allow duplicate elements.</p>
  *
- * <p>The List interface provides methods for position-based (indexed) access
+ * <p>The edu.greenriver.sdev333.List interface provides methods for position-based (indexed) access
  * to list items.</p>
  *
- * <p>The List interface provides methods for modification of the list
+ * <p>The edu.greenriver.sdev333.List interface provides methods for modification of the list
  * (add and remove) at a given position (index).</p>
  *
- * <p>The List interface provides two methods to search for a specified item.
+ * <p>The edu.greenriver.sdev333.List interface provides two methods to search for a specified item.
  * Warning: the performance of these operations are dependent on the
  * implementation.</p>
  *
- * <p>In addition to providing an Iterator (as required by Collection),
- * the List interface provides a special iterator, called a ListIterator
+ * <p>In addition to providing an Iterator (as required by edu.greenriver.sdev333.Collection),
+ * the edu.greenriver.sdev333.List interface provides a special iterator, called a ListIterator
  * that allows element insertion and replacement, and bidirectional access
  * in addition to the normal operations that Iterator provides.</p>
  *
- * <p>edu.greenriver.sdev333.List is a modified subset of java.util.List
+ * <p>edu.greenriver.sdev333.List is a modified subset of java.util.edu.greenriver.sdev333.List
  * used for teaching and learning purposes only</p>
  *
  * @param <ItemType> the data type of the individual items in this list
@@ -133,7 +133,7 @@ public interface List<ItemType> extends Collection<ItemType> {
      */
     int lastIndexOf(ItemType item);
 
-    // List Iterators
+    // edu.greenriver.sdev333.List Iterators
 
     /**
      * Returns a list iterator over the elements in this list
