@@ -15,6 +15,11 @@ public class ArrayList<ItemType> implements List<ItemType> {
         data = (ItemType[]) new Object[10];
     }
 
+    //ArrayList that allows user to select the default size of the array
+    public ArrayList(int size) {
+        this.size = size;
+        data = (ItemType[]) new Object[size + 10 % size];
+    }
 
     /**
      * Returns the number of items in this collection.
@@ -250,7 +255,7 @@ public class ArrayList<ItemType> implements List<ItemType> {
     public void remove(int index) {
 
         for (int i = index; i < size - 1; i++) {
-            data[i] = data[i - 1];
+            data[i] = data[i + 1];
         }
         data[size] = null;
         size--;
