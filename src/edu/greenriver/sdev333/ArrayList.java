@@ -1,17 +1,19 @@
+//created package in local directory so need to bring it in by using keyword package
 package edu.greenriver.sdev333;
 
+//imports so we can use the methods from like .hasNext and .next
 import java.util.Iterator;
 import java.util.ListIterator;
 
 public class ArrayList <ItemType> implements List<ItemType>{
     //NEED FIELDS? YES
-    //1 plain old java array
+    //1 plain private common java array
     private ItemType[] data;
 
     //1 int to keep track of size, the number of spots in data array
     private int size;
 
-    //constructor
+    //constructor set initial size to 0 and set the array data to hold 10 items
     public ArrayList() {
         size = 0;
         data = (ItemType[]) new Object[10];
@@ -33,6 +35,8 @@ public class ArrayList <ItemType> implements List<ItemType>{
      *
      * @return true if this collection contains no items
      */
+    //if the size of my array is 0 then its empty so give me back true and if not false
+    //or just give me back 0 if size is 0
     @Override
     public boolean isEmpty() {
         return size == 0;
@@ -48,6 +52,10 @@ public class ArrayList <ItemType> implements List<ItemType>{
      */
     @Override
     public boolean contains(ItemType item) {
+        int i = indexOf(item);
+        if(i != -1) {
+            return true;
+        }
         return false;
     }
 
@@ -58,7 +66,24 @@ public class ArrayList <ItemType> implements List<ItemType>{
      */
     @Override
     public Iterator<ItemType> iterator() {
-        return null;
+        return new OurCustomIterator();
+    }
+
+
+
+    private void checkSize(){
+        if(size == data.length){
+            //resize up(double up to the array size) step 1 create larger array a temporary array to copy to
+            ItemType[] temp = (ItemType[]) new Object[size * 2];
+            ///step 2 iterate through, copy items from first array to the second, from data to temp
+            for (int i = 0; i < size; i++) {
+                temp[i] = data[i];
+            }
+            //step 3 repoint  data to the new array
+            data = temp;
+            //now temp is disconnected /optional.
+            temp = null;
+        }// end of if
     }
 
     /**
@@ -72,18 +97,7 @@ public class ArrayList <ItemType> implements List<ItemType>{
     public void add(ItemType item) {
         //code above works until size = the length, no room left.
         //do check first to not get error then update size
-        if(size == data.length){
-            //resize up(double up to the array size) step 1 create larger array a temporary array to copy to
-            ItemType[] temp = (ItemType[]) new Object[size * 2];
-            ///step 2 iterate through, copy items from first array to the second, from data to temp
-            for (int i = 0; i < size; i++) {
-                temp[i] = data[i];
-            }
-            //step 3 repoint  data to the new array
-            data = temp;
-            //now temp is disconnected /optional.
-            temp = null;
-        }
+        checkSize();
         data[size] = item;
         size++;
     }
@@ -98,7 +112,10 @@ public class ArrayList <ItemType> implements List<ItemType>{
      */
     @Override
     public void remove(ItemType item) {
-
+        int i = indexOf(item);
+        if(i !=-1) {
+            remove(i);
+        }
     }
 
     /**
@@ -121,9 +138,14 @@ public class ArrayList <ItemType> implements List<ItemType>{
      */
     @Override
     public boolean containsAll(Collection<? extends ItemType> otherCollection) {
-        //fail fast (fail loud) to not write a method
-        throw new UnsupportedOperationException("Not implemented");
-        //return false;
+        Iterator<ItemType> itr = (Iterator<ItemType>)otherCollection.iterator();
+        while (itr.hasNext()) {
+            ItemType itemToCheck = itr.next();
+            if(!contains(itemToCheck)) {
+                return false;
+            }
+        }
+        return true;
     }
 
     /**
@@ -211,7 +233,16 @@ public class ArrayList <ItemType> implements List<ItemType>{
      *                                   (index < 0 || index >= size())
      */
     @Override
+    //adding item at specific index without overwriting the current item at the index
     public void add(int index, ItemType item) {
+        //error checking method created already and now invoked
+        checkSize();
+        for (int i = size; i >= index + 1; i--) {
+            data[i] = data[i - 1];
+        }
+
+        data[index] = item;
+        size++;
 
     }
 
@@ -225,7 +256,11 @@ public class ArrayList <ItemType> implements List<ItemType>{
      */
     @Override
     public void remove(int index) {
-
+        //shift values left to overwrite the item at index
+        for (int i = index; i < size - 1; i++) {
+            data[i] = data[i + 1];
+        }
+        size--;
     }
 
     /**
@@ -238,9 +273,17 @@ public class ArrayList <ItemType> implements List<ItemType>{
      * @throws NullPointerException if the specified item is null and this
      *                              list does not permit null items
      */
+
+    //gives the index # of the item in arraylist given by the user
     @Override
     public int indexOf(ItemType item) {
-        return 0;
+        for (int i = 0; i < size; i++) {
+            if(item.equals(data[i])) {
+                return i;
+            }
+        }
+        // if -1 returned then item is not in the array
+        return -1;
     }
 
     /**
@@ -269,4 +312,80 @@ public class ArrayList <ItemType> implements List<ItemType>{
     public ListIterator<ItemType> listIterator() {
         return null;
     }
-}
+
+    //Making class inside another class so not making a new file
+    private class OurCustomIterator implements Iterator<ItemType> {
+        //fields only 1 below
+        private int currentPosition;
+        //need constructor
+        public OurCustomIterator() {
+            currentPosition = 0;
+        }
+
+        @Override
+        public boolean hasNext() {
+            return currentPosition < size();
+        }
+
+        @Override
+        public ItemType next() {
+            ItemType result = get(currentPosition);
+            currentPosition++;
+            return result;
+        }
+    }
+
+    private class SecondCustomIterator implements ListIterator<ItemType> {
+        //fancier Iterator - allows us to go forwards and back
+        private int currentPosition;
+        public SecondCustomIterator() {
+            currentPosition =0;
+        }
+
+        @Override
+        public boolean hasNext() {
+            return false;
+        }
+
+        @Override
+        public ItemType next() {
+            return null;
+        }
+
+        @Override
+        public boolean hasPrevious() {
+            return currentPosition > 0;
+        }
+
+        @Override
+        public ItemType previous() {
+            return null;
+        }
+
+        @Override
+        public int nextIndex() {
+            return 0;
+        }
+
+        @Override
+        public int previousIndex() {
+            return 0;
+        }
+
+        @Override
+        public void remove() {
+
+        }
+
+        @Override
+        public void set(ItemType itemType) {
+
+        }
+
+        @Override
+        public void add(ItemType itemType) {
+
+        }
+    }
+
+}// end of class ArrayList
