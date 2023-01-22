@@ -202,6 +202,11 @@ public class ArrayList<ItemType> implements List<ItemType> {
 
     }
 
+    public void isValidIndex(int index){
+        if (index >= size()) {
+            throw new IndexOutOfBoundsException("Index is beyond size");
+        }
+    }
     /**
      * Returns the item at the specified position in this list
      *
@@ -212,9 +217,7 @@ public class ArrayList<ItemType> implements List<ItemType> {
      */
     @Override
     public ItemType get(int index) {
-        if (index >= size()) {
-            throw new IndexOutOfBoundsException("Index is beyond size");
-        }
+        isValidIndex(index);
         return data[index];
     }
 
@@ -231,9 +234,7 @@ public class ArrayList<ItemType> implements List<ItemType> {
      */
     @Override
     public void set(int index, ItemType item) {
-        if (index >= size){
-           throw new IndexOutOfBoundsException("Index is beyond size");
-        }
+        isValidIndex(index);
         data[index] = item;
 
     }
