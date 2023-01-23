@@ -1,9 +1,9 @@
 package edu.greenriver.sdev333;
+
 import java.util.Iterator;
 import java.util.ListIterator;
 
-public class SinglyLinkedList<ItemType> implements List<ItemType> {
-
+public class DoublyLinkedList<ItemType> implements List<ItemType> {
     // FIELDS - what does a linked list actually have in it??
     private Node head;
     private int size;
@@ -12,12 +12,13 @@ public class SinglyLinkedList<ItemType> implements List<ItemType> {
     private class Node {
         ItemType data;
         Node next;
+        Node previous;
     }
 
     /**
      * Constructor
      */
-    public SinglyLinkedList() {
+    public DoublyLinkedList() {
         // an empty list has no nodes, which means it has no head,
         // so set head to null
         head = null;
@@ -40,7 +41,7 @@ public class SinglyLinkedList<ItemType> implements List<ItemType> {
      */
     @Override
     public boolean isEmpty() {
-        return size == 0;
+        return false;
     }
 
     /**
@@ -97,8 +98,7 @@ public class SinglyLinkedList<ItemType> implements List<ItemType> {
      */
     @Override
     public void clear() {
-        head = null;
-        size = 0;
+
     }
 
     /**
@@ -250,4 +250,6 @@ public class SinglyLinkedList<ItemType> implements List<ItemType> {
     public ListIterator<ItemType> listIterator() {
         return null;
     }
+
+
 }
