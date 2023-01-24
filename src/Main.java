@@ -19,7 +19,8 @@ public class Main {
 
         System.out.println();
         System.out.println("Create list of integers, adding 10 elements, 1 .. 10");
-        List<Integer> intList = new ArrayList<>();
+        //List<Integer> intList = new ArrayList<>();
+        List<Integer> intList = new DoublyLinkedList<>();
 
         System.out.println("testing isEmpty on empty list, returns: " + intList.isEmpty());
 
@@ -34,6 +35,14 @@ public class Main {
         intList.add(8);
         intList.add(9);
         intList.add(10);
+
+        // NEW FOR DOUBLYLINKEDARRAYLIST
+//        System.out.println("Printing List organically w/o iterator");
+//        for (int i = 0; i < intList.size(); i++) {
+//            System.out.print(intList.get(i) + " ");
+//        }
+//        System.out.println();
+        // END NEW TEST
 
         System.out.println("testing isEmpty on a list with 10 items, returns: " + intList.isEmpty());
         System.out.println();
