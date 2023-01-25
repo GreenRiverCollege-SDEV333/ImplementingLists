@@ -108,13 +108,13 @@ public class Main {
         friends.addAll(friend);
 
         //**public boolean equals(Object otherObject)
-        System.out.println(friends.equals(friend));
+        System.out.println("Are they equal?" + friends.equals(friend));
         friend.clear();
         friends.clear();
-        System.out.println(friends.equals(friend));
+        System.out.println("Are they equal?" + friends.equals(friend));
         friends.add("Jack");
         friend.add("Jack");
-        System.out.println(friends.equals(friend));
+        System.out.println("Are they equal?" + friends.equals(friend));
         //public ListIterator<ItemType> listIterator()
         friends.add("Ken");
         friends.add("Brandon");

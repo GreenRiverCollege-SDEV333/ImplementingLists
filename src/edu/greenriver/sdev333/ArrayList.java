@@ -378,32 +378,22 @@ public class ArrayList<ItemType> implements List<ItemType> {
         if (!(otherObject instanceof ArrayList<?>)) {
             return false;
         }
+        ArrayList<ItemType> other = (ArrayList<ItemType>) otherObject;
 
-        // typecast o to Complex so that we can compare data members
-        ArrayList c = (ArrayList) otherObject;
+        if(size != other.size)
+        {
+           return false;
+        }
 
-        // Compare the data members and return accordingly
-        int sizeOne = 0;
-        if(size > ((ArrayList<?>) otherObject).size())
+        for(int i =0; i <size; i ++)
         {
-            sizeOne = size;
-        }
-        else
-        {
-            sizeOne = ((ArrayList<?>) otherObject).size();
-        }
-        for(int i = 0; i <sizeOne; i++)
-        {
-            if(data[i] == null || ((ArrayList<?>) otherObject).size() < size())
-            {
-                return false;
-            }
-            if(!data[i].equals(((ArrayList<?>) otherObject).get(i)))
-            {
-                return false;
-            }
+              if(!data[i].equals(other.data[i]))
+              {
+                  return false;
+              }
         }
         return true;
+
 
     }
     private class OurCustomIterator implements Iterator<ItemType> {
