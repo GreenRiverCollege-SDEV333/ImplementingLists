@@ -7,6 +7,7 @@ public class SinglyLinkedList<ItemType> implements List<ItemType> {
 
     // FIELDS - what does a linked list actually have in it??
     private Node head;
+    private Node tail;
     private int size;
 
     // helper/inner class
@@ -23,6 +24,50 @@ public class SinglyLinkedList<ItemType> implements List<ItemType> {
         // which means it has no head
         head = null;
         size = 0;
+    }
+
+
+
+    /*
+     * Return a pointer to the last element in the linked-list
+     */
+    private SinglyLinkedList.Node getLastElement() {
+        if (size == 0) {
+            return null;
+        } else {
+            SinglyLinkedList.Node n = head;
+            while (n.next != null) {
+                n = n.next;
+            }
+            return n;
+        }
+    }
+
+
+    /*
+     * Return element at index n
+     */
+    private SinglyLinkedList.Node getElementN(int index) {
+
+        //System.out.print("Retrieving element " + index + ", ");
+
+        if ((index >= size) || (index < 0))
+            throw new IndexOutOfBoundsException();
+
+        SinglyLinkedList.Node n = head;
+        int i = -1;
+
+        while (n.next != null) {
+            i++;
+            n = n.next;
+            if (i == index) {
+                //System.out.println("data, " + n.data);
+                return n;
+            }
+        }
+
+        // we shouldn't be here ...
+        throw new NullPointerException();
     }
 
     /**
@@ -78,6 +123,18 @@ public class SinglyLinkedList<ItemType> implements List<ItemType> {
     @Override
     public void add(ItemType item) {
 
+        if (head == null) {
+            head = new SinglyLinkedList.Node();
+            head.next = new SinglyLinkedList.Node();
+            head.next.data = item;
+        } else {
+            SinglyLinkedList.Node currentLast = getLastElement();
+
+            currentLast.next = new SinglyLinkedList.Node();
+            currentLast.next.data = item;
+        }
+
+        ++size;
     }
 
     /**
@@ -195,7 +252,17 @@ public class SinglyLinkedList<ItemType> implements List<ItemType> {
      */
     @Override
     public void add(int index, ItemType item) {
-
+        if (item == null)
+            throw new NullPointerException();
+//
+//        DoublyLinkedList.Node i = getElementN(index);
+//        DoublyLinkedList.Node n = new DoublyLinkedList.Node();
+//        n.data = item;
+//        n.previous = i.previous;        // previous value for new node
+//        n.next = i;                     // next value for new node
+//        i.previous.next = n;            // next value for old prior node
+//        i.previous = n;                 // previous value for old node
+//        ++size;
     }
 
     /**
