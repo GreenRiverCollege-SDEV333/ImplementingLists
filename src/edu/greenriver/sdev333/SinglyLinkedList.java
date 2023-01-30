@@ -29,6 +29,11 @@ public class SinglyLinkedList <ItemType> implements List<ItemType>{
             throw new IndexOutOfBoundsException();
         }
     }
+    public void isNull(ItemType item){
+        if(item == null){
+            throw new NullPointerException();
+        }
+    }
 
     public class ourCustomIterator implements Iterator<ItemType>{
 
@@ -98,7 +103,8 @@ public class SinglyLinkedList <ItemType> implements List<ItemType>{
      */
     @Override
     public boolean contains(ItemType item) {
-        return false;
+        isNull(item);
+        return indexOf(item) != -1;
     }
 
     /**
@@ -121,6 +127,7 @@ public class SinglyLinkedList <ItemType> implements List<ItemType>{
      */
     @Override
     public void add(ItemType item) {
+        isNull(item);
         //create new node for item, catch null pointer
         Node add = new Node();
         if(item == null){
@@ -152,6 +159,23 @@ public class SinglyLinkedList <ItemType> implements List<ItemType>{
      */
     @Override
     public void remove(ItemType item) {
+        isNull(item);
+        //or use IndexOf and remove(index)
+        if(head.data == item){
+            head = head.next;
+        }else{
+            Node current = head;
+            Node previous;
+            while(current.next != null){
+                previous = current;
+                current = current.next;
+
+                if(current.data.equals(item)){
+                    previous.next = current.next;
+                    size--;
+                }
+            }
+        }
 
     }
 
@@ -338,7 +362,18 @@ public class SinglyLinkedList <ItemType> implements List<ItemType>{
      */
     @Override
     public int indexOf(ItemType item) {
-        return 0;
+        isNull(item);
+
+        int counter = 0;
+        Node cur = head;
+        while(cur != null){
+            if(cur.data.equals(item)){
+                return counter;
+            }
+            counter++;
+            cur = cur.next;
+        }
+        return -1;
     }
 
     /**
@@ -353,7 +388,18 @@ public class SinglyLinkedList <ItemType> implements List<ItemType>{
      */
     @Override
     public int lastIndexOf(ItemType item) {
-        return 0;
+        isNull(item);
+        int lastIndex = -1;
+        int counter = 0;
+        Node cur = head;
+        while(cur != null){
+            if(cur.data.equals(item)){
+                lastIndex = counter;
+            }
+            counter++;
+            cur = cur.next;
+        }
+        return lastIndex;
     }
 
     /**
