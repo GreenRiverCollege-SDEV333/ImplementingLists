@@ -13,6 +13,11 @@ public class SinglyLinkedList <ItemType> implements List<ItemType>{
     private class Node{
         ItemType data;
         Node next;
+
+        public Node(ItemType data, Node next) {
+            this.data = data;
+            this.next = next;
+        }
     }
 
     //constructor
