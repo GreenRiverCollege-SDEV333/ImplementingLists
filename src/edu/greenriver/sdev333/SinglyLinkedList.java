@@ -177,7 +177,14 @@ public class SinglyLinkedList <ItemType> implements List<ItemType>{
      */
     @Override
     public ItemType get(int index) {
-        return null;
+        Node current = head;
+        int counter = 0;
+        while (counter != index){
+            current = current.next;
+            counter++;
+        }
+
+        return current.data;
     }
 
     /**
