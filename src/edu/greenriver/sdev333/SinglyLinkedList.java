@@ -14,10 +14,6 @@ public class SinglyLinkedList <ItemType> implements List<ItemType>{
         ItemType data;
         Node next;
 
-        public Node(ItemType data, Node next) {
-            this.data = data;
-            this.next = next;
-        }
     }
 
     //constructor
@@ -78,7 +74,25 @@ public class SinglyLinkedList <ItemType> implements List<ItemType>{
      */
     @Override
     public void add(ItemType item) {
-
+        //create new node for item, catch null pointer
+        Node add = new Node();
+        if(item == null){
+            throw new NullPointerException();
+        }else{
+            add.data = item;
+            add.next = null;
+        }
+        //add to end of LinkedList
+        if(head == null){
+            head = add;
+        }else{
+            Node current = head;
+            while(current.next  != null){
+                current = current.next;
+            }
+            current.next = add;
+        }
+        size++;
     }
 
     /**
