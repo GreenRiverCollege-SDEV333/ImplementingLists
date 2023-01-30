@@ -1,7 +1,9 @@
 package edu.greenriver.sdev333;
 
+import javax.naming.OperationNotSupportedException;
 import java.util.Iterator;
 import java.util.ListIterator;
+import java.util.NoSuchElementException;
 
 public class SinglyLinkedList<ItemType> implements List<ItemType> {
 
@@ -53,7 +55,12 @@ public class SinglyLinkedList<ItemType> implements List<ItemType> {
      */
     @Override
     public boolean contains(ItemType item) {
-        return false;
+        // assume indexOf is working...
+        int position = indexOf(item);
+        if ( position == -1 ) {
+            return false;
+        }
+        return true;
     }
 
     /**
@@ -92,8 +99,9 @@ public class SinglyLinkedList<ItemType> implements List<ItemType> {
             newNode.next = null;
             current.next = newNode;
 
+            size++;
+
         }
-        size++;
 
     }
 
@@ -107,7 +115,33 @@ public class SinglyLinkedList<ItemType> implements List<ItemType> {
      */
     @Override
     public void remove(ItemType item) {
+        if (item == null) {
+            throw new NullPointerException();
+        }
 
+       /* // alternative, easier but less efficient
+        int position = indexOf(item);
+        if( position != -1 ) {
+            remove(position);
+        }*/
+
+        if(head.data == item) {
+            head = head.next;
+            size--;
+        }
+        else {
+            Node current = head;
+            Node previous;
+            while (current.next != null){
+                previous = current;
+                current = current.next;
+
+                if(current.data.equals(item)) {
+                    previous.next = current.next;
+                    size--;
+                }
+            }
+        }
     }
 
     /**
@@ -141,6 +175,7 @@ public class SinglyLinkedList<ItemType> implements List<ItemType> {
     @Override
     public void addAll(Collection<? extends ItemType> otherCollection) {
 
+        throw new UnsupportedOperationException();
     }
 
     /**
@@ -222,20 +257,41 @@ public class SinglyLinkedList<ItemType> implements List<ItemType> {
      */
     @Override
     public void add(int index, ItemType item) {
+        checkIndex(index);
 
-        Node current = head;
-        // stop one before the position I want to insert at
-        for (int i = 0; i < index - 1; i++) {
-            current = current.next;
+        if( index == 0 ) {
+            // if someone wants to add at the beginning, I need
+            // to change the head
+            Node theNewOne = new Node();
+            theNewOne.data = item;
+            theNewOne.next = head;
+
+            head = theNewOne;
         }
+        else {
+            Node current = head;
+            // stop one before the position I want to insert at
+            for (int i = 0; i < index - 1; i++) {
+                current = current.next;
+            }
 
-        // when I get here, current is pointing to the node
-        // BEFORE the one at the index
-        Node theNewOne = new Node();
-        theNewOne.data = item;
-        theNewOne.next = current.next;
+            // when I get here, current is pointing to the node
+            // BEFORE the one at the index
+            Node theNewOne = new Node();
+            theNewOne.data = item;
+            theNewOne.next = current.next;
 
+            current.next = theNewOne;
+        }
         size++;
+
+    }
+
+
+    private void checkIndex( int index) {
+        if ( index < 0 || index >= size ) {
+            throw new IndexOutOfBoundsException();
+        }
     }
 
     /**
@@ -248,17 +304,25 @@ public class SinglyLinkedList<ItemType> implements List<ItemType> {
      */
     @Override
     public void remove(int index) {
+        checkIndex(index);
 
-        Node current = head;
-        for (int i = 0; i < index - 1; i++) {
-            current = current.next;
+        if ( index == 0) {
+            head = head.next;
         }
 
-        // here, current is pointing to the node BEFORE the one
-        // at index
-        current.next = current.next.next;
+        else {
+            Node current = head;
+            for (int i = 0; i < index - 1; i++) {
+                current = current.next;
+            }
 
-        size--;
+            // here, current is pointing to the node BEFORE the one
+            // at index
+            current.next = current.next.next;
+
+            size--;
+        }
+
     }
 
     /**
@@ -273,7 +337,16 @@ public class SinglyLinkedList<ItemType> implements List<ItemType> {
      */
     @Override
     public int indexOf(ItemType item) {
-        return 0;
+        int counter = 0;
+        Node current = head;
+        while ( current != null ) {
+            if ( current.data.equals(item) ) {
+                return counter;
+            }
+            counter++;
+            current = current.next;
+        }
+        return -1;
     }
 
     /**
