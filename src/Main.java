@@ -11,12 +11,22 @@ import java.util.ListIterator;
  */
 public class Main {
 
+    /*
+     * private method to print our list, utilizes the Iterator
+     * via a for-each loop to do so.
+     */
     private static void printIntList(List<Integer> l) {
         for(int i: l) {
             System.out.print(i + " ");
         }
         System.out.println();
     }
+
+    /**
+     * Our main method where we have our testing for our List
+     * classes.
+     * @param args
+     */
     public static void main(String[] args) {
 
         System.out.println();

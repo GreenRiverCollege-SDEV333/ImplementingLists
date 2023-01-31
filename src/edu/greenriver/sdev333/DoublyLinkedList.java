@@ -182,11 +182,9 @@ public class DoublyLinkedList<ItemType> implements List<ItemType>{
     }
 
     /*
-     * Return element at index n
+     * Return element at index n (not the data in that element)
      */
     private Node getElementN(int index) {
-
-        //System.out.print("Retrieving element " + index + ", ");
 
         if ((index >= size) || (index < 0))
             throw new IndexOutOfBoundsException();
