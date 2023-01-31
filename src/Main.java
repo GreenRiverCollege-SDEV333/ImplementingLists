@@ -1,5 +1,7 @@
 import edu.greenriver.sdev333.*;
 
+import java.util.ListIterator;
+
 /**
  * Main Class used to test functionality of ArrayList implementation.
  * Inside the main() method are comments and code regarding the setup
@@ -35,6 +37,49 @@ public class Main {
         intList.add(8);
         intList.add(9);
         intList.add(10);
+        printIntList(intList);
+/*
+        System.out.println("removing index 5 (#6)");
+        intList.remove(5);
+        printIntList(intList);
+
+        System.out.println("removing index 0 (#1)");
+        intList.remove(0);  // remove index
+        printIntList(intList);
+
+        System.out.println("removing item 2");
+        intList.remove(Integer.valueOf(2));    // remove item - problem w/ iterator after this point
+        printIntList(intList);
+
+        System.out.println("removing item 7");
+        intList.remove(Integer.valueOf(7));
+        printIntList(intList);
+
+        System.out.println("Clearing list, then adding numbers 21..25");
+        intList.clear();
+
+        intList.add(21);
+        intList.add(22);
+        intList.add(23);
+        intList.add(24);
+        intList.add(25);
+        printIntList(intList);
+
+        // BEGIN TEST ITERATOR
+        System.out.println("Testing ListIterator forward");
+        ListIterator<Integer> myItr = intList.listIterator();
+        while(myItr.hasNext()) {
+            System.out.print(myItr.next() + " ");
+        }
+        System.out.println();
+
+        System.out.println("Testing in reverse");
+        while(myItr.hasPrevious()) {
+            System.out.print(myItr.previous() + " ");
+        }
+        System.out.println();
+        // END TEST ITERATOR
+        */
 
         // NEW FOR DOUBLYLINKEDARRAYLIST
 //        System.out.println("Printing List organically w/o iterator");
@@ -112,7 +157,7 @@ public class Main {
         System.out.println();
 
         // test containsAll()
-        List<Integer> newList = new ArrayList<>();
+        List<Integer> newList = new DoublyLinkedList<>();
         newList.add(1);
         newList.add(8);
         System.out.println("Testing containsAll() with a sublist of 1 and 8, should return true");
@@ -139,7 +184,7 @@ public class Main {
         System.out.println();
 
         // testing 2nd constructor w/ initial parameter
-        intList = new ArrayList<>(20);
+        intList = new DoublyLinkedList<>();
         intList.add(1);
         intList.add(2);
         intList.add(3);
@@ -151,11 +196,12 @@ public class Main {
         intList.add(9);
         intList.add(10);
         System.out.println("Testing 2nd constructor w/ initial size parameter, should have 1..10 entered.");
+        System.out.println("Note, no 2nd constructor for DoublyLinkedList, using original ... ");
         printIntList(intList);
         System.out.println();
 
         // testing addAll(collection)
-        List<Integer> tempList = new ArrayList<>();
+        List<Integer> tempList = new DoublyLinkedList<>();
         tempList.add(50);
         tempList.add(51);
         tempList.add(52);
@@ -171,7 +217,7 @@ public class Main {
         System.out.println("Testing equals() method, original list vs tempList (50..55), should be false");
         System.out.println("Result of intList.equals(tempList): " + intList.equals(tempList));
         System.out.println("Testing equals method, tempList (50..55) vs bList (50..55), should be true");
-        List<Integer> bList = new ArrayList<>();
+        List<Integer> bList = new DoublyLinkedList<>();
         bList.add(50);
         bList.add(51);
         bList.add(52);
@@ -183,14 +229,34 @@ public class Main {
         System.out.println();
         System.out.println("Original list again:");
         printIntList(intList);
+
+
+        // BEGIN TEST ITERATOR
+        System.out.println("Testing ListIterator forward");
+        ListIterator<Integer> myItr = intList.listIterator();
+        while(myItr.hasNext()) {
+            System.out.print(myItr.next() + " ");
+        }
         System.out.println();
 
-        List<Integer> cList = new ArrayList<>();
+        System.out.println("Testing in reverse");
+        while(myItr.hasPrevious()) {
+            System.out.print(myItr.previous() + " ");
+        }
+        System.out.println();
+        // END TEST ITERATOR
+
+
+
+        System.out.println();
+
+        List<Integer> cList = new DoublyLinkedList<>();
         cList.add(1);
         cList.add(5);
         cList.add(9);
         cList.add(52);
         cList.add(55);
+        cList.add(72);
 
         // testing removeAll(collection)
         System.out.println("Will be removing cList from our original list, cList is:");
@@ -205,14 +271,42 @@ public class Main {
         System.out.println("We are going to test retainAll(), but lets add items back to our original list.");
         System.out.println("Original list again:");
         intList.addAll(cList);
+
+        cList.add(99);
         printIntList(intList);
-        System.out.println("cList again is:");
+        System.out.println("cList again is (added 99 to this list):");
         printIntList(cList);
         System.out.println("We are going to retain only the items in cList that are in our original list");
         intList.retainAll(cList);
         System.out.println("Resulting original list:");
         printIntList(intList);
 
+        System.out.println("Adding 1..10 to original list again");
+        intList.add(1);
+        intList.add(2);
+        intList.add(3);
+        intList.add(4);
+        intList.add(5);
+        intList.add(6);
+        intList.add(7);
+        intList.add(8);
+        intList.add(9);
+        intList.add(10);
+        printIntList(intList);
+
+        System.out.println("Testing ListIterator forward");
+        //ListIterator<Integer> myItr = intList.listIterator();
+        myItr = intList.listIterator();
+        while(myItr.hasNext()) {
+            System.out.print(myItr.next() + " ");
+        }
+        System.out.println();
+
+        System.out.println("Testing in reverse");
+        while(myItr.hasPrevious()) {
+            System.out.print(myItr.previous() + " ");
+        }
+        System.out.println();
 
     }
 }

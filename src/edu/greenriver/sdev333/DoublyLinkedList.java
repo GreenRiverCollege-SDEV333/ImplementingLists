@@ -15,29 +15,146 @@ public class DoublyLinkedList<ItemType> implements List<ItemType>{
         Node previous;
     }
 
-    // TODO - Implement this Iterator, I don't really understand how they work
+    /*
+     * Test w/ for-each statemenet
+     */
     private class OurCustomIterator<ItemType> implements Iterator<ItemType> {
 
         private Node iHead;
 
         public OurCustomIterator() {
-            iHead = DoublyLinkedList.this.head;
+            //iHead = DoublyLinkedList.this.head;
+            iHead = head;
         }
         @Override
         public boolean hasNext() {
-            if ((iHead != null ) && iHead.next != null)
+            // Ken tested for if (currentPostition != null) ... but he had reversed the two lines in next() as well
+            //return iHead.next != null;
+            if ((iHead != null) && iHead.next != null)
                 return true;
-
             return false;
+        }
 
-            //return !(iHead.next == null);
+        /*
+         * Ken had iHead.next and result = lines reversed
+         */
+        @Override
+        public ItemType next() {
+            iHead = iHead.next;
+            ItemType result = (ItemType) iHead.data;
+            return result;
+        }
+    }
+
+    // geeksforgeeks.org/difference-between-an-iterator-and-listiterator-in-java/
+    private class OurListIterator<ItemType> implements ListIterator<ItemType> {
+
+        private Node iHead;
+        private Node priorNode;
+
+        public OurListIterator() {
+            iHead = head;
+        }
+        @Override
+        public boolean hasNext() {
+            return iHead.next != null;
         }
 
         @Override
         public ItemType next() {
             iHead = iHead.next;
             ItemType result = (ItemType) iHead.data;
+            priorNode = iHead;
             return result;
+        }
+
+        @Override
+        public boolean hasPrevious() {
+            //return iHead.previous != null;
+            //return iHead.previous != null;
+            return iHead != null;
+        }
+
+        @Override
+        public ItemType previous() {
+            //iHead = iHead.previous;
+            //ItemType result = (ItemType) iHead.data;
+            ItemType result = (ItemType) iHead.data;
+            //if (iHead.previous != null)
+            iHead = iHead.previous;
+            priorNode = iHead;
+            return result;
+        }
+
+        @Override
+        public int nextIndex() {
+            if (iHead.next == null)
+                return size();
+
+            ItemType next = next();
+            Node node = head;
+            int i = 0;
+
+            while (node.next != null) {
+                node = node.next;
+                i++;
+                if (node.next.data.equals(next)) {
+                    return i;
+                }
+            }
+
+            return 0;
+        }
+
+        @Override
+        public int previousIndex() {
+            if (iHead.previous == null)
+                return -1;
+
+            ItemType prev = (ItemType) iHead.previous.data;
+            Node node = head;
+            int i = -1;
+
+            while (node.next != null) {
+                node = node.next;               // will be head node w/ index 0 to start
+                i++;
+                if (node.data.equals(prev)) {
+                    return i;
+                }
+            }
+
+            return -1;
+        }
+
+        @Override
+        public void remove() {
+            // both prior and next nodes ARE NOT null
+            if (priorNode.previous != null && priorNode.next != null) {
+                priorNode.previous.next = priorNode.next;   // prior nodes' next value = next node
+                priorNode.next.previous = priorNode.previous;
+            }
+            // both prior and next nodes ARE null (single item in list)
+            else if (priorNode.previous == null && priorNode.next == null) {
+                iHead.next = null;
+            }
+            // prior only IS NULL (1st item in list)
+            else if (priorNode.previous == null) {
+                iHead = priorNode.next;
+            }
+            // next only IS NULL (last item in list)
+            else if (priorNode.next == null) {
+                priorNode.next = null;
+            }
+        }
+
+        @Override
+        public void set(ItemType itemType) {
+
+        }
+
+        @Override
+        public void add(ItemType itemType) {
+
         }
     }
 
@@ -145,7 +262,7 @@ public class DoublyLinkedList<ItemType> implements List<ItemType>{
     @Override
     public void add(ItemType item) {
 
-        if (head == null) {
+        if (head == null) {         // Add new 1st item, item.previous = null
             head = new Node();
             head.next = new Node();
             head.next.data = item;
@@ -170,16 +287,30 @@ public class DoublyLinkedList<ItemType> implements List<ItemType>{
      */
     @Override
     public void remove(ItemType item) {
+        if (item == null)
+            throw new NullPointerException();
+
         Node n = head;
-        while (n.next != null) {
-            n = n.next;
-            if (n.data.equals(item)) {
-                n.next.previous = n.previous;   // assign 'previous' for following node to prior node
-                n.previous.next = n.next;       // assign 'next' for prior node to n.next
-                --size;
-                return;
+
+        // 1st Node is treated differently as it has no valid previous
+        if (n.next.data.equals(item)) {
+            n.next = n.next.next;
+            n.next.previous = null;
+            --size;
+        }
+        else {
+            while (n.next != null) {
+                n = n.next;
+                if (n.data.equals(item)) {
+                    if (n.next != null)
+                        n.next.previous = n.previous;   // assign 'previous' for following node to prior node
+                    n.previous.next = n.next;       // assign 'next' for prior node to n.next
+                    --size;
+                    return;
+                }
             }
         }
+
     }
 
     /**
@@ -318,13 +449,15 @@ public class DoublyLinkedList<ItemType> implements List<ItemType>{
         if (item == null)
             throw new NullPointerException();
 
-        Node i = getElementN(index);
-        Node n = new Node();
+        Node i = getElementN(index);    // current element at index
+        Node n = new Node();            // new node to be inserted
         n.data = item;
-        n.previous = i.previous;        // previous value for new node
+        if (index != 0)
+            n.previous = i.previous;    // previous value for new node
         n.next = i;                     // next value for new node
         i.previous.next = n;            // next value for old prior node
         i.previous = n;                 // previous value for old node
+
         ++size;
     }
 
@@ -339,8 +472,15 @@ public class DoublyLinkedList<ItemType> implements List<ItemType>{
     @Override
     public void remove(int index) {
         Node i = getElementN(index);
-        i.previous.next = i.next;
-        i.next.previous = i.previous;
+
+        if (index == 0) {
+            head.next = i.next;
+            i.next.previous = null;
+        } else {
+            i.previous.next = i.next;
+            i.next.previous = i.previous;
+        }
+
         --size;
     }
 
@@ -417,6 +557,6 @@ public class DoublyLinkedList<ItemType> implements List<ItemType>{
      */
     @Override
     public ListIterator<ItemType> listIterator() {
-        return null;
+        return new OurListIterator<>();
     }
 }
