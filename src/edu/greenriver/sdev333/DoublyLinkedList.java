@@ -3,6 +3,14 @@ package edu.greenriver.sdev333;
 import java.util.Iterator;
 import java.util.ListIterator;
 
+/**
+ * This class implements the List interface.  Testing is done in the
+ * Main class, and there were bugs found, esp wrt to the ListIterator
+ * class.  I had to cycle through the Main tests comment them out to
+ * determine what was interfering with my list of Nodes (was remove(item)).
+ *
+ * @author Paul Woods
+ */
 public class DoublyLinkedList<ItemType> implements List<ItemType>{
 
     private Node head;
