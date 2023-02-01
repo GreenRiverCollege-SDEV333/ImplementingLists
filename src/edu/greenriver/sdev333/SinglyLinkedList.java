@@ -198,8 +198,19 @@ public class SinglyLinkedList<ItemType> implements List<ItemType> {
      * @param otherCollection collection containing items to be added to this collection
      */
     @Override
-    public void addAll(Collection<? extends ItemType> otherCollection) {
-        throw new UnsupportedOperationException();
+    public void addAll(Collection<? extends ItemType> otherCollection)
+    {
+        //walk through the other collection
+        // for-each loop
+        // or use Iterator
+
+        Iterator<ItemType> itr = (Iterator<ItemType>) otherCollection.iterator();
+        while(itr.hasNext())
+        {
+            ItemType currentItem = itr.next();
+            this.add(0,currentItem);
+        }
+
     }
 
     /**
