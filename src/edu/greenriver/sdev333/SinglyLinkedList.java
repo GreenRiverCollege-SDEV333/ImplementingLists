@@ -138,7 +138,10 @@ public class SinglyLinkedList <ItemType> implements List<ItemType>{
      */
     @Override
     public void addAll(Collection<? extends ItemType> otherCollection) {
-
+        for (ItemType item: otherCollection
+             ) {
+            this.add(item);
+        }
     }
 
     /**
