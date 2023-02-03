@@ -4,6 +4,9 @@ import java.util.Iterator;
 import java.util.ListIterator;
 
 /**
+ * Did the Level 1, Level 2, and Extras with the exception of the
+ * hashCode() method.
+ *
  * This class implements the List interface.  Testing is done in the
  * Main class, and there were intial bugs found and then corrected,
  * esp wrt to the ListIterator class.  I had to cycle through the

@@ -3,6 +3,9 @@ import edu.greenriver.sdev333.*;
 import java.util.ListIterator;
 
 /**
+ * Did the Level 1, Level 2, and Extras with the exception of the
+ * hashCode() method.
+ *
  * Main Class used to test functionality of ArrayList implementation.
  * Inside the main() method are comments and code regarding the setup
  * and testing for each given method.
