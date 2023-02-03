@@ -3,6 +3,16 @@ package edu.greenriver.sdev333;
 import java.util.Iterator;
 import java.util.ListIterator;
 
+/**
+ * NOT TESTED - SEE DoublyLinkedList
+ * This class implements the List interface using a SinglyLinkedList.
+ * The code here is not complete, I finished implementing this
+ * interface using a DoublyLinkedList instead.
+ *
+ * @author Paul Woods
+ * @param <ItemType>
+ */
+
 public class SinglyLinkedList<ItemType> implements List<ItemType> {
 
     // FIELDS - what does a linked list actually have in it??
