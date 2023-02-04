@@ -53,27 +53,38 @@ public class Main {
             }
 
 
-//        nemesis.add("Jess");
-//        nemesis.add("adam");
-//        nemesis.add("de");
-//        nemesis.add("tony");
-//        nemesis.add("kevin");
-//        nemesis.add("carl");
-//        nemesis.add("alex");
-//        nemesis.add("tony");
-//        nemesis.add("meadow");
-
-      //  System.out.println("the last occurance of tony in nemesis is index " +nemesis.lastIndexOf("tony"));
         System.out.println("The friends SingleyLinkedList returns true if Jess in found within: " +friends.contains("Jess"));
-       // System.out.println("The nemesis Array list returns true if kevin in found within: " +nemesis.contains("Kevin"));
 
-       // System.out.println("are all my friends my enemies?:"+nemesis.containsAll(friends));
         System.out.println();
         System.out.println("friends:"+friends);
-       // System.out.println("nemesis:"+nemesis);
+
         System.out.println();
         System.out.println("size is now " + friends.size());
         System.out.println("The index of Jess is " +friends.indexOf("Jess"));
+        friends.remove("Jess");
+        friends.remove(0);
+        System.out.println( " Bye-Bye Jess and adam");
+        System.out.println("what , did jess and adam actually leave? "+friends);
+        System.out.println("looks like it");
+        System.out.println(" oh crap its the cops, everybody scram!");friends.clear();
+        System.out.println(friends);
+        System.out.println("lets add some new friends");
+        friends.add(0,"Kenny");
+        friends.add(1,"Ty");
+        friends.add(0,"Bobby");
+        System.out.println(friends);
+        System.out.println("Kenny is my second friend because he sits in position:"+friends.indexOf("Kenny"));
+        System.out.println("And "+friends.get(0)+" is my  favorite friend because they sit in position: "+friends.indexOf(friends.get(0)));
+        System.out.println("Actually my new second best friend is Cole now");
+            friends.set(1,"Cole");
+        System.out.println(friends);
+        List<String> nemesis = new SinglyLinkedList<String>();
+        nemesis.addAll(friends);
+        System.out.println("oh no, my anti friends are here! they are jus tlike my friends but their order is reversed!");
+        System.out.println(nemesis);
+        nemesis.add(0,"Bobby");
+        System.out.println(nemesis);
+        System.out.println("what is the last index of bobby now?"+nemesis.lastIndexOf("Bobby"));
 
 //        System.out.println();
 //        System.out.println("adding friend karly to index 4");

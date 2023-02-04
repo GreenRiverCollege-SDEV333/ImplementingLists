@@ -2,6 +2,7 @@ package edu.greenriver.sdev333;
 
 import java.util.Iterator;
 import java.util.ListIterator;
+import java.util.NoSuchElementException;
 
 public class SinglyLinkedList<ItemType> implements List<ItemType>{
     // FIELDS - what does a Linked List actually have in it?
@@ -12,6 +13,7 @@ public class SinglyLinkedList<ItemType> implements List<ItemType>{
     private class Node{
         ItemType data;
         Node next;
+        Node previous;
     }
 
     /**
@@ -191,7 +193,15 @@ public class SinglyLinkedList<ItemType> implements List<ItemType>{
     @Override
     public void addAll(Collection<? extends ItemType> otherCollection) {
 
-        throw new UnsupportedOperationException();
+        // //walk through the other collection
+        //for-each loop
+        // or use Iterator
+                                //  must cast the iterator
+        Iterator<ItemType> itr = (Iterator<ItemType>)otherCollection.iterator();
+        while(itr.hasNext()){
+            ItemType currentItem = itr.next();
+            add(0,currentItem);
+        }
 
     }
 
@@ -231,9 +241,7 @@ public class SinglyLinkedList<ItemType> implements List<ItemType>{
      */
     @Override
     public ItemType get(int index) {
-        if(index < 0 | index >= size){
-            throw new IndexOutOfBoundsException();
-        }
+        checkIndex(index);
 
         Node current = head;
         int counter = 0;
@@ -258,7 +266,17 @@ public class SinglyLinkedList<ItemType> implements List<ItemType>{
      */
     @Override
     public void set(int index, ItemType item) {
-     //16 minutes in this is explained 1/30/23
+
+        checkIndex(index);
+        Node current = head;
+        int counter = 0;
+        while(counter!= index){
+            current = current.next;
+            counter++;
+        }
+        current.data = item;
+
+
     }
 
     /**
@@ -275,33 +293,39 @@ public class SinglyLinkedList<ItemType> implements List<ItemType>{
      */
     @Override
     public void add(int index, ItemType item) {
-        checkIndex(index);
-        if(index == 0){
+       checkIndex(index);
+
+        if (head == null) {
+            Node theNewOne = new Node();
+            theNewOne.data = item;
+            head = theNewOne;
+        } else if (index == 0) {
             // if someone wants to add at the beginning, i need to change the head
             Node theNewOne = new Node();
             theNewOne.data = item;
             theNewOne.next = head;
 
             head = theNewOne;
-        }
-        Node current = head;
+        } else {
+            Node current = head;
 
-        //stop one before the position i want to insert at
-        for (int i = 0; i <  index - 1; i++) {
-            current =current.next;
-        }
+            //stop one before the position i want to insert at
+            for (int i = 0; i < index - 1; i++) {
+                current = current.next;
+            }
 
-        //when i get here, current is pointing the nbode *BEFORE* the node at the index
-        Node theNewOne = new Node();
-        theNewOne.data = item;
-        theNewOne.next = current.next;
-        current.next = theNewOne;
+            //when i get here, current is pointing the node *BEFORE* the node at the index
+            Node theNewOne = new Node();
+            theNewOne.data = item;
+            theNewOne.next = current.next;
+            current.next = theNewOne;
+        }
 
         size++;
     }
 
     private void checkIndex(int index){
-        if(index < 0 | index >= size){
+        if(index < 0 | index > size){
             throw new IndexOutOfBoundsException();
         }
     }
@@ -371,7 +395,38 @@ public class SinglyLinkedList<ItemType> implements List<ItemType>{
      */
     @Override
     public int lastIndexOf(ItemType item) {
-        return 0;
+        // since we return -1 if the item does not appear in our list,
+        // we can create a variable called last index to hold that value.
+        // we will update this variable as we traverse the linked list, and eventually
+        // it will hold the number of the last position our node.data=item will be in
+      int lastIndex = -1;
+      // we will create a variable to count how many positions we have traveled too,
+      // so this number will be updated every time we traverse through our list
+        // eventually we will assign last index to this number and our method will be complete
+      int index=0;
+
+      // we create a new node to hold our position, and we assign this node the value of whatever our head node is
+        // then we go from there
+      Node current = head;
+      // this is the standard traversal loop we use to traverse through nodes in a linked list
+        // if current equals null, then there are no longer any more objects or nodes in our linked list, so the
+        //loop will stop
+      while (current != null){
+          // this conditional if statement says if our current nodes data field is the same as the item we passed into the method
+          // then we will set the int variable lastIndex to the value of index
+          // at the start, last index is -1, so if current.data never equals item, we will exit this loop when current equals null
+          // and our method will return the default -1. Otherwise, if the item passed through our parameter does equal current.data
+          // we will update last index to the value of index. we always increment the value of index, and assign current to current.next, so
+          // our pointer is  looking to the next node in our list. our loop will run until current equals null, so we will continue to check current.data against
+          //our item parameter, and if we get a hit, we will update lastIndex to our newly incremented index value everytime.
+          if(current.data.equals(item)){
+              lastIndex = index;
+          }
+            index++;
+          current = current.next;
+        }
+        // we return last index every time, -1 for default but whatever the appropriate index is if we have the item in our list
+        return lastIndex;
     }
 
     /**
@@ -393,7 +448,10 @@ public class SinglyLinkedList<ItemType> implements List<ItemType>{
         Node current = head;
         String result = "[" ;
         while(current != null){
-            result += current.data+ ",";
+            result += current.data;
+            if(current.next != null){
+                result+=",";
+            }
             current = current.next;
         }
         return result + "]";
@@ -444,6 +502,7 @@ public class SinglyLinkedList<ItemType> implements List<ItemType>{
 
 
         private Node currentPosition;
+        private Node previousPosition;
         private int currentIndex;
 
         public OurEnhancedIterator(){
@@ -476,6 +535,9 @@ public class SinglyLinkedList<ItemType> implements List<ItemType>{
          */
         @Override
         public ItemType next() {
+            if(!hasNext()){
+                throw new NoSuchElementException();
+            }
             ItemType result = currentPosition.data;
             currentPosition = currentPosition.next;
             return result;
@@ -492,7 +554,8 @@ public class SinglyLinkedList<ItemType> implements List<ItemType>{
          */
         @Override
         public boolean hasPrevious() {
-            return false;
+
+            return previous()!= null;
         }
 
         /**
@@ -509,7 +572,12 @@ public class SinglyLinkedList<ItemType> implements List<ItemType>{
          */
         @Override
         public ItemType previous() {
-            return null;
+            if(!hasPrevious()){
+                throw new NoSuchElementException();
+            }
+            currentPosition = previousPosition;
+            previousPosition = previousPosition.previous;
+            return currentPosition.data;
         }
 
         /**
@@ -523,7 +591,8 @@ public class SinglyLinkedList<ItemType> implements List<ItemType>{
          */
         @Override
         public int nextIndex() {
-            return 0;
+
+            return currentIndex;
         }
 
         /**
@@ -537,7 +606,7 @@ public class SinglyLinkedList<ItemType> implements List<ItemType>{
          */
         @Override
         public int previousIndex() {
-            return 0;
+            return currentIndex - 1;
         }
 
         /**
