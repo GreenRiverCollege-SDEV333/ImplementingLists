@@ -2,6 +2,7 @@ package edu.greenriver.sdev333;
 
 import java.util.Iterator;
 import java.util.ListIterator;
+import java.util.NoSuchElementException;
 
 public class SinglyLinkedList <ItemType> implements List<ItemType>{
     //Fields- What is in a LinkedList?
@@ -199,7 +200,13 @@ public class SinglyLinkedList <ItemType> implements List<ItemType>{
      */
     @Override
     public boolean containsAll(Collection<? extends ItemType> otherCollection) {
-        return false;
+        for (ItemType item: otherCollection
+        ) {
+            if(!this.contains(item)){
+                return false;
+            }
+        }
+        return true;
     }
 
     /**
@@ -225,7 +232,13 @@ public class SinglyLinkedList <ItemType> implements List<ItemType>{
      */
     @Override
     public void removeAll(Collection<? extends ItemType> otherCollection) {
-
+        for (ItemType item: otherCollection
+        ) {
+           int a = this.indexOf(item);
+           if(a >= 0){
+               this.remove(a);
+           }
+        }
     }
 
     /**
@@ -238,7 +251,15 @@ public class SinglyLinkedList <ItemType> implements List<ItemType>{
      */
     @Override
     public void retainAll(Collection<? extends ItemType> otherCollection) {
-
+        List<ItemType> temp = new SinglyLinkedList<ItemType>();
+        this.size = 0;
+        for (ItemType item: otherCollection) {
+            if(indexOf(item) != -1){
+                temp.add(item);
+                size++;
+            }
+        }
+        this.head = ((SinglyLinkedList<ItemType>) temp).head;
     }
 
     /**
@@ -277,6 +298,7 @@ public class SinglyLinkedList <ItemType> implements List<ItemType>{
      */
     @Override
     public void set(int index, ItemType item) {
+        isNull(item);
         validIndex(index);
 
         Node current = head;
@@ -304,6 +326,7 @@ public class SinglyLinkedList <ItemType> implements List<ItemType>{
      */
     @Override
     public void add(int index, ItemType item) {
+        isNull(item);
         validIndex(index);
         Node temp = new Node();
         Node current = head;
@@ -436,7 +459,7 @@ public class SinglyLinkedList <ItemType> implements List<ItemType>{
          */
         @Override
         public boolean hasNext() {
-            return currentPosition != null;
+            return currentPosition.next != null;
         }
 
         /**
@@ -451,7 +474,13 @@ public class SinglyLinkedList <ItemType> implements List<ItemType>{
          */
         @Override
         public ItemType next() {
-            return null;
+            if(!hasNext()){
+                throw new NoSuchElementException();
+            }
+            ItemType next = currentPosition.data;
+            currentPosition = currentPosition.next;
+            return next;
+
         }
 
         /**
