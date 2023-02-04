@@ -555,7 +555,7 @@ public class SinglyLinkedList<ItemType> implements List<ItemType>{
         @Override
         public boolean hasPrevious() {
 
-            return previous()!= null;
+            return previousPosition != null;
         }
 
         /**
