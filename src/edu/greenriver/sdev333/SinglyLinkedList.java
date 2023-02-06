@@ -340,10 +340,8 @@ public class SinglyLinkedList <ItemType> implements List<ItemType>{
                 current = current.next;
                 counter++;
             }
-
             temp.data = item;
             temp.next = current.next;
-
             current.next = temp;
         }
         size++;
