@@ -1,5 +1,6 @@
 import edu.greenriver.sdev333.ArrayList;
 import edu.greenriver.sdev333.List;
+import edu.greenriver.sdev333.RecursiveLinkedList;
 import edu.greenriver.sdev333.SinglyLinkedList;
 
 import java.util.Iterator;
@@ -30,6 +31,7 @@ public class Main {
         friends.add(1, "Hello");
         //test add with errors
 //        friends.add(-1, "Hello");
+        System.out.println("Index of Hello = 1? " + friends.indexOf("Hello"));
 
         //below prints with hello after Jess
 //        for(int i=0; i< friends.size(); i++){
@@ -108,6 +110,22 @@ public class Main {
 
         //test indexOf
         System.out.println("Index of Jesus: " + friends.indexOf("Jesus"));
+        System.out.println( );
+
+
+        List<String> friends4 = new RecursiveLinkedList<>();
+        System.out.println("List size before add: " + friends4.size());
+
+        friends4.add("John");
+        friends4.add("Jake");
+        friends4.add("Jenny");
+        friends4.add("Joey");
+        friends4.add("Jordan");
+        friends4.add("Justin");
+        friends4.add("Jill");
+        friends4.add("Joe");
+
+        System.out.println("List size after add: " + friends4.size());
 
     }
 }
