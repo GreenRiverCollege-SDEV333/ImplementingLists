@@ -81,7 +81,7 @@ public class SinglyLinkedList<ItemType> implements List<ItemType> {
      * @throws NullPointerException if the specified item is null
      *                              and this collection does not permit null items
      */
-    
+
     @Override
     public void add(ItemType item) {
         if (item == null) {
@@ -294,6 +294,13 @@ public class SinglyLinkedList<ItemType> implements List<ItemType> {
         }
 
         size++;
+    }
+
+    public int hashCode() {
+        int result = 1;
+        for (ItemType item : this)
+            result = 31 * result + (item == null ? 0 : item.hashCode());
+        return result;
     }
 
     private void checkIndex(int index) {

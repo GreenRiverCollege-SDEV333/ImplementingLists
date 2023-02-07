@@ -60,6 +60,14 @@ public class Main {
         Friend2.add("Rover");
         Friend2.add("Ronaldo");
 
+        List<String> Friend3 = new ArrayList<String>(2);
+        Friend3.add("Rover");
+        Friend3.add("Ronaldo");
+
+
+        System.out.println("\n Equal: " + Friend2.equals(Friend3) + " (Should be true)");
+        System.out.println("\n Equal: " + friends.equals(Friend3) + " (Should be false)");
+
         Friend2.addAll(friends);
         Iterator<String> itr2 = Friend2.iterator();
         System.out.print("All friends (addAll method): ");
@@ -68,25 +76,23 @@ public class Main {
             System.out.print(name + " ");
         }
 
-        System.out.println("\n" + friends.equals(Friend2));
-
         ListIterator<Integer> numbersIterator = numbers.listIterator();
 
         // Traversing elements
-        System.out.println("Forward Direction Iteration:");
+        System.out.print("\n Forward Direction Iteration: ");
         while(numbersIterator.hasNext()){
-            System.out.println(numbersIterator.next());
+            System.out.print(numbersIterator.next()+ " ");
         }
 
         // Traversing elements, the iterator is at the end at this point
-        System.out.println("Backward Direction Iteration:");
+        System.out.print("\n Backward Direction Iteration: ");
         while(numbersIterator.hasPrevious()){
-            System.out.println(numbersIterator.previous());
+            System.out.print(numbersIterator.previous() + " ");
         }
         //resize testing [1,2,3,4,5] <- length = 5, double length to 10 add 6 to array ->
         //[1,2,3,4,5,6,null,null,null,null] size is 6 now
         numbers.add(6);
         //index 6 is out of bound to test method isValidIndex throw index is beyond size
-        System.out.println(numbers.get(6));
+        System.out.println("\n" + numbers.get(6));
     }
 }
