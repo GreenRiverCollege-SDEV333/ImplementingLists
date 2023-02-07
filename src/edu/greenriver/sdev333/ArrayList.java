@@ -228,13 +228,13 @@ public class ArrayList<ItemType> implements List<ItemType> {
     @Override
     // Not sure why it's not working
     public void retainAll(Collection<? extends ItemType> otherCollection) {
-//        ListIterator<ItemType> iterator = this.listIterator();
-//        while (iterator.hasNext()) {
-//            ItemType item = iterator.next();
-//            if (!otherCollection.contains(item)) {
-//                iterator.remove();
-//            }
-//        }
+        ListIterator<ItemType> iterator = this.listIterator();
+        while (iterator.hasNext()) {
+            ItemType item = iterator.next();
+            if (!contains(item)) {
+                iterator.remove();
+            }
+        }
     }
 
     private boolean isValidIndex(int index){
