@@ -41,6 +41,7 @@ public class ArrayList<ItemType> implements List<ItemType> {
      */
     @Override
     public int size() {
+
         return size;
     }
 
@@ -51,6 +52,7 @@ public class ArrayList<ItemType> implements List<ItemType> {
      */
     @Override
     public boolean isEmpty() {
+
         return size == 0;
     }
 
@@ -222,6 +224,35 @@ public class ArrayList<ItemType> implements List<ItemType> {
             throw new IndexOutOfBoundsException("index is beyond size");
         }
         data[index] = item;
+    }
+
+
+
+    public void addToFront(ItemType item) {
+        // create larger array just in case
+        ItemType[] temp = (ItemType[]) new Object[size * 2];
+        for (int i = 0; i < size; i++) {
+            temp[i] = data[i];
+        }
+        size++;
+
+        temp[0] = item;
+        for (int i = 1; i < size; i++) {
+            temp[i] = data[i - 1];
+        }
+        data = temp;
+    }
+
+    public void addToBack(ItemType item) {
+        // create larger array just in case
+        ItemType[] temp = (ItemType[]) new Object[size * 2];
+        for (int i = 0; i < size; i++) {
+            temp[i] = data[i];
+        }
+        size++;
+
+        temp[size - 1] = item;
+        data = temp;
     }
 
     /**
@@ -414,6 +445,7 @@ public class ArrayList<ItemType> implements List<ItemType> {
 
         @Override
         public boolean hasNext() {
+
             return currentPosition < size();
         }
 
@@ -422,7 +454,8 @@ public class ArrayList<ItemType> implements List<ItemType> {
         public ItemType next() {
             ItemType result = get(currentPosition);
             currentPosition++;
-            return result;        }
+            return result;
+        }
 
 
         @Override
@@ -434,6 +467,7 @@ public class ArrayList<ItemType> implements List<ItemType> {
 
         @Override
         public ItemType previous() {
+
             return null;
         }
 

@@ -42,6 +42,7 @@ public class SinglyLinkedList<ItemType> implements List<ItemType> {
      */
     @Override
     public boolean isEmpty() {
+
         return size == 0;
     }
 
@@ -74,6 +75,17 @@ public class SinglyLinkedList<ItemType> implements List<ItemType> {
         return new OurCustomIterator();
     }
 
+
+    public void addToBack(ItemType item) {
+
+    }
+    public void addToFront(ItemType item) {
+        Node nodeToAdd = new Node();
+        nodeToAdd.data = item;
+        nodeToAdd.next = head;
+        head = nodeToAdd;
+        size++;
+    }
     /**
      * Adds the specified item to the collection.
      *
@@ -246,6 +258,21 @@ public class SinglyLinkedList<ItemType> implements List<ItemType> {
      */
     @Override
     public void set(int index, ItemType item) {
+        if ( index < 0 || index >= size ){
+            throw new IndexOutOfBoundsException();
+        }
+
+        Node current = head;
+        Node temp = current;
+        int counter = 0;
+        while ( counter != index ){
+            temp = current;
+            current = current.next;
+            counter++;
+        }
+        // need to finish
+        current.data.equals(item);
+        current.next = temp;
 
     }
 
