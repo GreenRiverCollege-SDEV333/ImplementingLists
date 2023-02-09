@@ -248,7 +248,6 @@ public class ArrayList<ItemType> implements List<ItemType> {
     public void set(int index, ItemType item) {
         data[index] =item;
 
-
     }
 
     /**
