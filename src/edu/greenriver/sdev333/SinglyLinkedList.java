@@ -3,19 +3,30 @@ package edu.greenriver.sdev333;
 import java.util.Iterator;
 import java.util.ListIterator;
 
-public class ArrayList<ItemType> implements List<ItemType> {
+//singly linked list will have to take in some generic items
+// and implements our interface
+public class SinglyLinkedList<ItemType> implements List<ItemType> {
 
-    // WE NEED FIELDS!!
-    private ItemType[] data;
+    // Fields - what does a linked list actually have in it?
+    // we know it has a head
+    private Node head; // we need a node class
 
-    // one int to keep track of size
-    //size is the # of spots that are used in the data array
-    //size is DIFFERENT than length
     private int size;
 
-    public ArrayList(){
+    // helper/inner classes
+    private class Node {
+        ItemType data;
+        Node next;
+        //we created a new class called Node and while we
+        // created a new class, the next is going to refer to Node
+    }
+
+    public SinglyLinkedList() {
+        //initializing to null, there is no nodes our list is empty
+        // which means it has no head
+        head = null;
         size = 0;
-        data = (ItemType[]) new Object[10];
+
     }
 
     /**
@@ -35,11 +46,8 @@ public class ArrayList<ItemType> implements List<ItemType> {
      */
     @Override
     public boolean isEmpty() {
-        if (size == 0){
-            return true;
-        }
-        return false;
-        // alternate way to write it: return size == 0;
+        return size == 0;
+        //or head == null;
     }
 
     /**
@@ -52,11 +60,12 @@ public class ArrayList<ItemType> implements List<ItemType> {
      */
     @Override
     public boolean contains(ItemType item) {
-        int i = indexOf(item);
-        if (i != -1) {
-            return true;
+        // assume indexOf is working
+        int position = lastIndexOf(item);
+        if (position == -1) {
+            return false;
         }
-        return false;
+        return true;
     }
 
     /**
@@ -69,27 +78,6 @@ public class ArrayList<ItemType> implements List<ItemType> {
         return new OurCustomIterator();
     }
 
-    private void checkSize() {
-        //all of the above code works until I run out of room, which is when size becomes the same as length
-        if(size == data.length) {
-            //resize up (double up the array size)
-
-            //Step 1 - crate a new larger array
-            ItemType[] temp = (ItemType[]) new Object[size * 2];
-
-            //Step 2 - copy items from data to temp
-            for (int i = 0; i < size; i++) {
-                temp[i] = data[i];
-            }
-
-            //Step 3 - repoint/references data to point to a new array
-            data = temp;
-
-            //optional:
-            temp = null;
-        } //end of if (need to resize)
-    }
-
     /**
      * Adds the specified item to the collection.
      *
@@ -97,17 +85,26 @@ public class ArrayList<ItemType> implements List<ItemType> {
      * @throws NullPointerException if the specified item is null
      *                              and this collection does not permit null items
      */
-
     @Override
     public void add(ItemType item) {
-
-        checkSize();
-
-        data[size] = item;
-        size++;
-    } // end of method
-
-
+        //assuming the list is empty
+        if (head !=  null) {
+            Node theNewOne = new Node();
+            theNewOne.data = item;
+            theNewOne.next = null;
+            size++;
+        }
+        //assuming the list has nodes in it already
+        Node current = head;
+        while (current.next != null) {
+            current = current.next;
+            Node theNewNode = new Node();
+            theNewNode.data = item;
+            theNewNode.next = null;
+            current.next = theNewNode;
+            size++;
+        }
+    }
 
     /**
      * Removes a single instance of the specified item from this collection,
@@ -119,12 +116,33 @@ public class ArrayList<ItemType> implements List<ItemType> {
      */
     @Override
     public void remove(ItemType item) {
-       int i = indexOf(item);
-       if (i != -1) {
-           // if its found, use the other remove method to do
-           // the work
-           remove(i);
-       }
+    //first check if item is null
+        if (item == null) {
+            throw new NullPointerException();
+        }
+
+        //alternative - easier to write, but less efficient
+        /*int position = indexOf(item);
+        if (position != -1){
+            remove(position);
+        }*/
+
+        if (head.data == item) {
+            head = head.next;
+            size--;
+        } else {
+            Node current = head;
+            Node previous;
+            while (current.next != null){
+                previous = current;
+                current = current.next;
+
+                if (current.data.equals(item)) {
+                    previous.next = current.next;
+                    size--;
+                }
+            }
+        }
     }
 
     /**
@@ -133,7 +151,7 @@ public class ArrayList<ItemType> implements List<ItemType> {
      */
     @Override
     public void clear() {
-        // lazy deletion
+        head = null;
         size = 0;
     }
 
@@ -147,23 +165,7 @@ public class ArrayList<ItemType> implements List<ItemType> {
      */
     @Override
     public boolean containsAll(Collection<? extends ItemType> otherCollection) {
-
-        Iterator<ItemType> itr = (Iterator<ItemType>)otherCollection.iterator();
-        while (itr.hasNext()){
-            ItemType itemToCheck = itr.next();
-            if (!contains(itemToCheck)) {
-                return false;
-            }
-        }
-
-        return true;
-
-        //easier was to write it
-
-
-        // fail fast (fail loud)
-        //throw new UnsupportedOperationException("Not implemented");
-        //return false;
+        return false;
     }
 
     /**
@@ -173,8 +175,15 @@ public class ArrayList<ItemType> implements List<ItemType> {
      */
     @Override
     public void addAll(Collection<? extends ItemType> otherCollection) {
-        throw new UnsupportedOperationException("Not going to to it");
+        // walk through the other collection
+        // use for-each loop
+        // or an Iterator
 
+        Iterator<ItemType> itr = (Iterator<ItemType>)otherCollection.iterator();
+        while (itr.hasNext()){
+            ItemType currentItem = itr.next();
+            add(0, currentItem);
+        }
     }
 
     /**
@@ -213,11 +222,16 @@ public class ArrayList<ItemType> implements List<ItemType> {
      */
     @Override
     public ItemType get(int index) {
-        if (index >= size){
-            throw new IndexOutOfBoundsException("Index is beyond size");
+        if (index < 0 || index >= size) {
+            throw new IndexOutOfBoundsException();
         }
-
-        return data[index];
+        Node current = head;
+        int counter = 0;
+        while (counter != index) {
+            current = current.next;
+            counter++;
+        }
+        return current.data;
     }
 
     /**
@@ -233,11 +247,7 @@ public class ArrayList<ItemType> implements List<ItemType> {
      */
     @Override
     public void set(int index, ItemType item) {
-        if (index >= size){
-            throw new IndexOutOfBoundsException("Index is beyond size");
-        }
 
-        data[index] = item;
     }
 
     /**
@@ -254,22 +264,61 @@ public class ArrayList<ItemType> implements List<ItemType> {
      */
     @Override
     public void add(int index, ItemType item) {
+        //checking to see if the index is valid
+        checkIndex(index);
 
-        checkSize();
+        // if someone wants to add at the beginning,
+        if (index == 0) {
+            //I need to change the head
+            Node theNewOne = new Node();
+            theNewOne.data = item;
+            theNewOne.next = head;
 
-        for (int i = size; i >= index + 1; i--) {
-            data[i] = data[i - 1];
+            head = theNewOne;
         }
 
-        data[index] = item;
+        // making a variable called current that is a copy of head
+        Node current = head;
+
+        // start at the same position then move current forward
+        // its going to move current forward "x" amount of times according to the index
+        // current stops one before the position we want to be at
+        for (int i = 0; i < index-1; i++) {
+            current = current.next;
+        }
+
+        //when I get here, current is pointing to the node *BEFORE* the index
+        Node theNewOne = new Node();
+        //theNewOne takes the new item
+        theNewOne.data = item;
+        //we set next equals to current because current has the address of
+        // our previous node
+        theNewOne.next = current.next;
+        // lastly we want our current next to point to theNewOne since it is now before it
+        current.next = theNewOne;
+        //then increment the size
         size++;
 
-        //essentially what is happening
-        /*data[5] = data[4];
-        data[4] = data[3];
-        data[3] = data[2];
 
-        data[2] = item;*/
+    }
+
+   // adding to the front of my linked list
+    public void addFront(ItemType item){
+        // we can do this way if we have our add(Int index, ItemType item) working
+        // add(0, item);
+
+        // if not, then we need to create a new node that we will be able to link
+        // at the front of the list
+
+
+    }
+
+    private void checkIndex(int index) {
+        //throw an exception for someone wanting to remove at a
+        // negative index or index greater than the size
+        if (index < 0 || index >= size) {
+            throw new IndexOutOfBoundsException();
+        }
     }
 
     /**
@@ -282,12 +331,25 @@ public class ArrayList<ItemType> implements List<ItemType> {
      */
     @Override
     public void remove(int index) {
-        //shift values left to overwrite the item at index
-        // in this one, the last index is not being set to null
-        for (int i = index; i < size - 1; i++) {
-            data[i] = data[i + 1];
+        checkIndex(index);
+
+        // if we are removing at index 0 (our head)
+        if (index == 0){
+            head = head.next;
         }
+        //if we are removing anywhere else/in the middle
+        else {
+            Node current = head;
+            for (int i = 0; i < index - 1; i++) {
+                current = current.next;
+            }
+            // when I get here, current is pointing to the node BEFORE
+            // the one at the index
+            current.next = current.next.next;
+        }
+        //when removing reduce size
         size--;
+
     }
 
     /**
@@ -302,13 +364,17 @@ public class ArrayList<ItemType> implements List<ItemType> {
      */
     @Override
     public int indexOf(ItemType item) {
-        for (int i = 0; i < size; i++) {
-            if (item.equals(data[i])) {
-                return i;
+        //make a counter to keep track of index
+        int counter = 0;
+        //make a current node
+        Node current = head;
+        while (current != null) {
+            if (current.data.equals(item)){
+                return counter;
             }
+            counter++;
+            current = current.next;
         }
-
-        //if -1 is returned, it wasn't in the array
         return -1;
     }
 
@@ -324,16 +390,7 @@ public class ArrayList<ItemType> implements List<ItemType> {
      */
     @Override
     public int lastIndexOf(ItemType item) {
-
-        for (int i = size - 1; i >= 0; i--) {
-            if (item.equals(data[i])) {
-                return i;
-            }
-        }
-
-        //if -1 is returned, it wasn't in the array
-        return -1;
-
+        return 0;
     }
 
     /**
@@ -348,66 +405,80 @@ public class ArrayList<ItemType> implements List<ItemType> {
         return null;
     }
 
-    private class OurCustomIterator implements Iterator<ItemType> {
-        //fields
 
-        private int currentPosition;
+    //helper class for the iterator method
+    private class OurCustomIterator implements Iterator<ItemType>{
 
-        public OurCustomIterator() {
-            //we would want our position to start at 0
-            currentPosition = 0;
+        // field to keep track of the current position
+        private Node currentPosition;
+
+        //constructor
+        public OurCustomIterator(){
+            //initialize it to head (the front of the list)
+            currentPosition = head;
         }
 
+        /**
+         * Returns {@code true} if the iteration has more elements.
+         * (In other words, returns {@code true} if {@link #next} would
+         * return an element rather than throwing an exception.)
+         *
+         * @return {@code true} if the iteration has more elements
+         */
         @Override
         public boolean hasNext() {
-            //if the current position number is less than size return the size
-            //this is calling the size method from the class it is inside of
-            return currentPosition < size();
-
+            //how to tell if were at the end of the list (aka the last node)
+            //if current.next == null
+            // see if I made it past the last node: if (current == null)
+            if (currentPosition != null){
+                return true;
+            }
+            return false;
         }
 
+        /**
+         * Returns the next element in the iteration.
+         *
+         * @return the next element in the iteration
+         * throws no Such Element Exception if the iteration has no more elements
+         */
         @Override
         public ItemType next() {
-            ItemType result = get(currentPosition);
-            currentPosition++;
+            ItemType result = currentPosition.data;
+            currentPosition = currentPosition.next;
             return result;
         }
     }
 
-    private class SecondCustomIterator implements ListIterator<ItemType> {
-        // fancier iterator- lets us go forwards and backwards
 
-        //fields
-        private int currentPosition;
+    //class for ListIterator
+    private class OurEnhancedIterator implements ListIterator<ItemType> {
 
-        //constructor
-        public SecondCustomIterator() {
+        private Node currentPosition;
 
-            currentPosition = 0;
+        public OurEnhancedIterator(){
+            currentPosition = head;
         }
 
         @Override
         public boolean hasNext() {
-            return currentPosition < size();
+            return currentPosition != null;
         }
 
         @Override
         public ItemType next() {
-            ItemType result = get(currentPosition);
-            currentPosition++;
+            ItemType result = currentPosition.data;
+            currentPosition = currentPosition.next;
             return result;
         }
 
         @Override
         public boolean hasPrevious() {
-            //hasNext checked currentPosition size
-            //hasPrevious checks currentPosition against 0
-            return currentPosition > 0;
+            return false;
         }
 
         @Override
         public ItemType previous() {
-
             return null;
         }
 
@@ -436,5 +507,6 @@ public class ArrayList<ItemType> implements List<ItemType> {
 
         }
     }
+}
 
-} // end of class ArrayList
+

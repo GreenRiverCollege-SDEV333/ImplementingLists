@@ -1,8 +1,10 @@
 import edu.greenriver.sdev333.ArrayList;
 import edu.greenriver.sdev333.Collection;
 import edu.greenriver.sdev333.List;
+import edu.greenriver.sdev333.SinglyLinkedList;
 
 import java.util.Iterator;
+import java.util.ListIterator;
 
 //ghusenam@users.noreply.github.com
 
@@ -11,7 +13,9 @@ public class Main {
     public static void main(String[] args) {
         System.out.println("Hello world!");
 
-        List<String> friends = new ArrayList<String>();
+        //List<String> friends = new ArrayList<String>();
+        List<String> friends = new SinglyLinkedList<String>();
+
         System.out.println("Initial size is " + friends.size());
 
         friends.add("Jess");
@@ -27,7 +31,7 @@ public class Main {
         friends.add("Dorothy");
         friends.add("Sophia");
 
-        //adding at item and ItemType item
+        /*//adding at item and ItemType item
         friends.add(2, "Wednesday");
 
         //removing at int index, Jess is removed if we remove at index 0
@@ -58,7 +62,7 @@ public class Main {
         System.out.println("Last index of Dee: " + friends.lastIndexOf("Dee"));
 
         //printing out everything in our list
-        /*for (int i = 0; i < friends.size(); i++) {
+        *//*for (int i = 0; i < friends.size(); i++) {
             System.out.println(friends.get(i));
         }*/
 
@@ -73,5 +77,11 @@ public class Main {
         for (String name : friends) {
             System.out.println(name);
         }
+
+       /* ListIterator<String> fancyItr = friends.listIterator();
+        while (fancyItr.hasPrevious()) {
+            String name = fancyItr.previous();
+            System.out.println(name);
+        }*/
     }
 }
