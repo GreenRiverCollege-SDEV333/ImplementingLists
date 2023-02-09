@@ -124,6 +124,8 @@ public class ArrayList<ItemType> implements List<ItemType> {
      * @throws NullPointerException if the specified item is null
      *                              and this collection does not permit null items
      */
+
+
     @Override
     public void remove(ItemType item) {
         if(isNull(item)){
