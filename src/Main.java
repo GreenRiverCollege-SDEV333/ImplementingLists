@@ -11,7 +11,7 @@ public class Main {
 
         System.out.println("Test isEmpty result: " + friends.isEmpty());
 
-        List<String> nemeses = new ArrayList<String>();
+        List<String> nemeses = new SinglyLinkedList<>();
 
         nemeses.add("BR");
         nemeses.add("H2");
