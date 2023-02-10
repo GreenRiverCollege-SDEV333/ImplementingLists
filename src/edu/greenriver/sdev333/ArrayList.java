@@ -186,8 +186,28 @@ public class ArrayList<ItemType> implements List<ItemType>{
     }
 
     public boolean equals(Object otherObject){
-        return this.data == otherObject;
+        ArrayList<ItemType> other = (ArrayList<ItemType>) otherObject;
+        if(other.size != ((ArrayList<ItemType>) otherObject).size){
+            return false;
+        }
+        for (int i = 0; i < size; i++) {
+            if(!data[i].equals(((ArrayList<ItemType>) otherObject).data[i])){
+                return false;
+            }
+
+        }
+        return true;
     }
+    /*
+    AL<IT> other = (AL<IT>) otherObject
+if size != size...false
+for i<size
+if !data[i].equals(other.data[i]
+return false
+
+
+return true
+     */
 
     /**
      * Returns true if this collection contains all the items
@@ -447,3 +467,17 @@ public class ArrayList<ItemType> implements List<ItemType>{
 
 
 }//end of ArrayList class
+/*
+kendrickhang--kens github
+(line 188)
+AL<IT> other = (AL<IT>) otherObject
+if size != size...false
+for i<size
+if !data[i].equals(other.data[i]
+return false
+
+
+return true
+
+
+ */
