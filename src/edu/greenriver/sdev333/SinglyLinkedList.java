@@ -105,6 +105,7 @@ public class SinglyLinkedList<ItemType> implements List<ItemType> {
             size++;
         }
     }
+    //
 
     /**
      * Removes a single instance of the specified item from this collection,
