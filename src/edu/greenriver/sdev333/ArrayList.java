@@ -286,36 +286,6 @@ public class ArrayList<ItemType> implements List<ItemType> {
         data[index] = item;
         size++;
 
-// Personal try during class
-//        if ( index < 0 || index >= size() ){
-//            throw new IndexOutOfBoundsException("Please enter a valid number");
-//        }
-//        if ( item == null ){
-//            throw new NullPointerException("Item cannot be null");
-//        }
-//
-//        // create larger array with one more index
-//
-//        // copy each element stopping before the indicated index
-//        ItemType[] temp = (ItemType[]) new Object[size + 1];
-//        for (int i = 0; i <= size; i++) {
-//            temp[i] = data[i];
-//
-//            if ( i == index ){
-//                // if i equals the indicated index, assign item to index
-//                temp[index] = item;
-//            }
-//            // if i is greater than the index, assign temp's current index value
-//            // to data's previous index's value
-//            else if ( i > index ){
-//                temp[i] = data[i - 1];
-//            }
-//        }
-//
-//        // increase size and repoint/reference data to point to temp array address
-//        size++;
-//        data = temp;
-
     }
 
 

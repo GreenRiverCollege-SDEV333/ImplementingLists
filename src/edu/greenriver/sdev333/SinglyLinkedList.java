@@ -78,8 +78,25 @@ public class SinglyLinkedList<ItemType> implements List<ItemType> {
 
     public void addToBack(ItemType item) {
 
+        Node current = head;
+        // stop one before the position I want to insert at
+        for (int i = 0; i < size - 1; i++) {
+            current = current.next;
+        }
+
+        // when I get here, current is pointing to the node
+        // BEFORE the one at the index
+        Node theNewOne = new Node();
+        theNewOne.data = item;
+        theNewOne.next = current.next;
+
+        current.next = theNewOne;
+        size++;
     }
+
+
     public void addToFront(ItemType item) {
+
         Node nodeToAdd = new Node();
         nodeToAdd.data = item;
         nodeToAdd.next = head;

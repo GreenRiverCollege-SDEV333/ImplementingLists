@@ -21,30 +21,14 @@ public class Main {
         friends.add("8");
         friends.add("9");
         friends.add("10");
-        friends.add("11");
-        ((SinglyLinkedList<String>) friends).addToFront("Friday");
-        //((ArrayList<String>) friends).addToBack("Friday");
+        ((SinglyLinkedList<String>) friends).addToBack("Friday");
+        //((ArrayList<String>) friends).addToFront("Friday");
         System.out.println("The size is now: " + friends.size());
 
 
         for (int i = 0; i < friends.size(); i++) {
             System.out.println(friends.get(i));
         }
-
-//        ListIterator<String> fancyItr = friends.listIterator();
-//        System.out.println("Testing listIterator<>");
-//        while (fancyItr.hasNext()) {
-//            String name = fancyItr.next();
-//            System.out.println(name);
-//        }
-//        System.out.println();
-//        while (fancyItr.hasPrevious()) {
-//            String name = fancyItr.previous();
-//            System.out.println(name);
-//        }
-
-
-
 
     }
 
