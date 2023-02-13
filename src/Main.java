@@ -1,10 +1,9 @@
 import edu.greenriver.sdev333.*;
 import java.util.Iterator;
+import java.util.ListIterator;
 
 public class Main {
     public static void main(String[] args) {
-        System.out.println("Hello world!");
-
         List<String> friends = new ArrayList<>();
         System.out.println("Initial size is " + friends.size());
 
@@ -36,6 +35,26 @@ public class Main {
         for (String name : friends) {
             System.out.println(name);
         }
+
+        System.out.println();
+
+        ListIterator<String> fancyItr = friends.listIterator();
+        while (fancyItr.hasNext()) {
+            String name = fancyItr.next();
+            System.out.println(name);
+        }
+        System.out.println();
+        while (fancyItr.hasPrevious()) {
+            String name = fancyItr.previous();
+            System.out.println(name);
+        }
+
+        System.out.println();
+        System.out.println("END OF ARRAY LIST TESTS");
+        System.out.println();
+
+        List<String> linkedFriends = new SinglyLinkedList<>();
+        System.out.println("Initial size is " + linkedFriends.size());
 
     }
 }
