@@ -49,12 +49,5 @@ public class Main {
             System.out.println(name);
         }
 
-        System.out.println();
-        System.out.println("END OF ARRAY LIST TESTS");
-        System.out.println();
-
-        List<String> linkedFriends = new SinglyLinkedList<>();
-        System.out.println("Initial size is " + linkedFriends.size());
-
     }
 }
