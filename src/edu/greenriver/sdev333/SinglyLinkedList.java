@@ -452,6 +452,7 @@ public class SinglyLinkedList<ItemType> implements List<ItemType> {
      */
     @Override
     public int indexOf(ItemType item) {
+        //
         int counter = 0;
         Node current = head;
         while (current != null) {

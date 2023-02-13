@@ -48,6 +48,7 @@ public class Main {
             String name = fancyItr.previous();
             System.out.println(name);
         }
+        //
 
     }
 }
