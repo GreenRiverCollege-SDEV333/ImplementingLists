@@ -80,11 +80,16 @@ public class SinglyLinkedList<ItemType> implements List<ItemType>{
      * @throws NullPointerException if the specified item is null
      *                              and this collection does not permit null items
      */
-    @Override
-    public void add(ItemType item) {
+
+    private void checkItem(ItemType item){
         if(item == null){
             throw new NullPointerException();
         }
+    }
+
+    @Override
+    public void add(ItemType item) {
+        checkItem(item);
         //the index at the end of the list is size - 1
         //exp: if list is size 5, last index is 4
         //so we can just insert at the last index
@@ -101,9 +106,7 @@ public class SinglyLinkedList<ItemType> implements List<ItemType>{
      */
     @Override
     public void remove(ItemType item) {
-        if(item == null){
-            throw new NullPointerException();
-        }
+       checkItem(item);
 
         if(head.data == item){
             head = head.next;
@@ -338,6 +341,7 @@ public class SinglyLinkedList<ItemType> implements List<ItemType>{
      */
     @Override
     public int lastIndexOf(ItemType item) {
+        checkItem(item);
         return 0;
     }
 
@@ -407,37 +411,37 @@ public class SinglyLinkedList<ItemType> implements List<ItemType>{
 
         @Override
         public boolean hasPrevious() {
-            return false;
+            throw new UnsupportedOperationException();
         }
 
         @Override
         public ItemType previous() {
-            return null;
+            throw new UnsupportedOperationException();
         }
 
         @Override
         public int nextIndex() {
-            return 0;
+            throw new UnsupportedOperationException();
         }
 
         @Override
         public int previousIndex() {
-            return 0;
+            throw new UnsupportedOperationException();
         }
 
         @Override
         public void remove() {
-
+            throw new UnsupportedOperationException();
         }
 
         @Override
         public void set(ItemType itemType) {
-
+            throw new UnsupportedOperationException();
         }
 
         @Override
         public void add(ItemType itemType) {
-
+            throw new UnsupportedOperationException();
         }
     }
 }

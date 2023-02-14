@@ -297,6 +297,22 @@ public class ArrayList<ItemType> implements List<ItemType>{
         return -1;
     }
 
+    public boolean equals(Object otherObject){
+        if(this == otherObject){
+            return true;
+        }
+        ArrayList<ItemType> other = (ArrayList<ItemType>) otherObject;
+        if(size != other.size){
+            return false;
+        }
+        for(int i = 0; i < size; i++){
+            if(!data[i].equals(other.data[i])){
+                return false;
+            }
+        }
+        return true;
+    }
+
     /**
      * Returns a list iterator over the elements in this list
      * (in proper sequence).
@@ -306,7 +322,7 @@ public class ArrayList<ItemType> implements List<ItemType>{
      */
     @Override
     public ListIterator<ItemType> listIterator() {
-        return null;
+        return new SecondCustomIterator();
     }
 
     private class OurCustomIterator implements Iterator<ItemType>{
@@ -338,48 +354,51 @@ public class ArrayList<ItemType> implements List<ItemType>{
         }
         @Override
         public boolean hasNext() {
-            return false;
-
+            return currentPosition < size();
         }
 
         @Override
         public ItemType next() {
-            return null;
+            ItemType item = get(currentPosition);
+            nextIndex();
+            return item;
         }
 
         @Override
         public boolean hasPrevious() {
-            return false;
+            return (size-1) >= 0;
         }
 
         @Override
         public ItemType previous() {
-            return null;
+            ItemType item = get(size-1);
+            previousIndex();
+            return item;
         }
 
         @Override
         public int nextIndex() {
-            return 0;
+            return currentPosition++;
         }
 
         @Override
         public int previousIndex() {
-            return 0;
+            return currentPosition--;
         }
 
         @Override
         public void remove() {
-
+            ArrayList.this.remove(data[size]);
         }
 
         @Override
         public void set(ItemType itemType) {
-
+            data[size] = itemType;
         }
 
         @Override
         public void add(ItemType itemType) {
-
+            data[size] = itemType;
         }
     }
 }//end of ArrayList
