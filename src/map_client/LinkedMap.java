@@ -1,6 +1,7 @@
 package map_client;
 
 public class LinkedMap {
+    /*
     // helper class
     private class Node {
         KeyType key;
@@ -44,4 +45,6 @@ public class LinkedMap {
         // key not in the list
         return null;
     }
+
+ */
 }

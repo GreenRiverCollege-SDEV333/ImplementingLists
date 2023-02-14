@@ -75,12 +75,14 @@ public class main {
             System.out.println(value);
         }
 
-
+/*
         LinkedMap<String, Integer> smallEx = new LinkedMap<>();
         smallEx.put("S",0);
         smallEx.put("E",1);
         smallEx.put("A",2);
 
+
+ */
 
     }
 }
