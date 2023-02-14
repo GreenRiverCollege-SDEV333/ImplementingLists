@@ -16,7 +16,7 @@ public class Main {
         friends.add("Jess");
         friends.add("Mint");
         friends.add("John");
-        friends.add("M");
+        friends.add("John");
         friends.add("K");
         friends.add("A");
         friends.add("f");
@@ -24,11 +24,19 @@ public class Main {
         friends.add(2,"Wednesday");
         System.out.println("Size is now " + friends.size());
 
+        System.out.println("John is at: " + friends.lastIndexOf("Dee"));
+        System.out.println("Last index of John: " + friends.lastIndexOf("John"));
+        //printing out everything in our list
+        for (int i = 0; i < friends.size(); i++) {
+        System.out.println(friends.get(i));
+    }
+
 
 //        //printing out friends name
 //        for (int i = 0; i < friends.size(); i++) {
 //            System.out.println(friends.get(i));
 //        }
+
 
         //iterator is
         Iterator<String> itr = friends.iterator();
@@ -40,5 +48,6 @@ public class Main {
         for (String name : friends){
             System.out.println(name);
         }
+
     }
 }
