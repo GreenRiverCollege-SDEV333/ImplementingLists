@@ -1,3 +1,5 @@
+package edu.greenriver.sdev333;
+
 import edu.greenriver.sdev333.*;
 import java.util.Iterator;
 import java.util.ListIterator;
@@ -7,7 +9,7 @@ public class Main {
 
         System.out.println("Hello world!");
 
-        List<String> friends = new SinglyLinkedList<String>();
+        List<String> friends = new RecursiveLinkedList<String>();
 
         System.out.println("initial size is " + friends.size());
 
@@ -30,17 +32,15 @@ public class Main {
         //}
 
         // above: import java.util.Iterator;
+        /*
         Iterator<String> itr = friends.iterator();
         while (itr.hasNext()) {
             String name = itr.next();
             System.out.println(name);
         }
-
-
         for (String name : friends) {
             System.out.println(name);
         }
-
         ListIterator<String> fancyItr = friends.listIterator();
         while (fancyItr.hasNext()) {
             String name = fancyItr.next();
@@ -51,9 +51,14 @@ public class Main {
             String name = fancyItr.previous();
             System.out.println(name);
         }
+         */
 
 
-
+        List<String> hello = new SinglyLinkedList<>();
+        hello.add("hello");
+        hello.add("yo");
+        hello.add("hi");
+        System.out.println("This is my get " + hello.get(1));
 
 
     }

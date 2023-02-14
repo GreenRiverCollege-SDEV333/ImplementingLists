@@ -154,7 +154,24 @@ public class SinglyLinkedList<ItemType> implements List<ItemType> {
      */
     @Override
     public boolean containsAll(Collection<? extends ItemType> otherCollection) {
-        return false;
+        for (ItemType item : otherCollection) {
+            if (!this.contains(item)) {
+                return false;
+            }
+        }
+        return true;
+
+        /*
+        Iterator<ItemType> itr = (Iterator<ItemType>)otherCollection.iterator();
+        while (itr.hasNext()) {
+            ItemType item = itr.next();
+            if (!contains(item)) {
+                return false;
+            }
+        }
+        return true;
+        */
+
     }
 
     /**
@@ -165,20 +182,21 @@ public class SinglyLinkedList<ItemType> implements List<ItemType> {
     @Override
     public void addAll(Collection<? extends ItemType> otherCollection) {
         // walk through the other collection
-        // for each loop or use Iterator
+        //  for-each loop
+        //  or use Iterator
+
         Iterator<ItemType> itr = (Iterator<ItemType>)otherCollection.iterator();
-        while(itr.hasNext()) {
-            while (itr.hasNext()) {
-                ItemType currentItem = itr.next();
-                add(0,currentItem); // add to front of list, make linear O-n to constant O-1
-            }
-        }
-        /* for each option
-        for (ItemType currentItem : otherCollection) {
+        while (itr.hasNext()) {
+            ItemType currentItem = itr.next();
             add(currentItem);
         }
 
-         */
+        /*
+        // alternative implementation using a for-each loop
+        for (ItemType currentItem : otherCollection) {
+            add(currentItem);
+        }
+        */
     }
 
     /**
@@ -217,9 +235,7 @@ public class SinglyLinkedList<ItemType> implements List<ItemType> {
      */
     @Override
     public ItemType get(int index) {
-        if (index < 0 || index >= size) {
-            throw new IndexOutOfBoundsException();
-        }
+        checkIndex(index);
 
         Node current = head;
         int counter = 0;
@@ -247,9 +263,34 @@ public class SinglyLinkedList<ItemType> implements List<ItemType> {
      */
     @Override
     public void set(int index, ItemType item) {
-        // not sure if this is right. just made this
-        head.data = get(index);
-        head.next.equals(item);
+        checkIndex(index);
+
+        get(index).equals(item);
+         /*
+         checkElementIndex(index);
+        Node<E> x = node(index);
+        E oldVal = x.item;
+        x.item = element;
+        return oldVal;
+
+        get index method
+        Node current = head;
+        int counter = 0;
+        while (counter != index) {
+            current = current.next;
+            counter++;
+        }
+        return current.data;
+         */
+
+    }
+
+
+    // check index out of bound method
+    private void checkIndex(int index) {
+        if (index < 0 || index >= size) {
+            throw new IndexOutOfBoundsException();
+        }
     }
 
     /**
@@ -273,7 +314,6 @@ public class SinglyLinkedList<ItemType> implements List<ItemType> {
             Node theNewOne = new Node();
             theNewOne.data = item;
             theNewOne.next = head;
-
             head = theNewOne;
         }
         else {
@@ -295,11 +335,6 @@ public class SinglyLinkedList<ItemType> implements List<ItemType> {
         size++;
     }
 
-    private void checkIndex(int index) {
-        if (index < 0 || index >= size) {
-            throw new IndexOutOfBoundsException();
-        }
-    }
 
     /**
      * Removes the element at the specified position in this list.
@@ -395,7 +430,7 @@ public class SinglyLinkedList<ItemType> implements List<ItemType> {
         @Override
         public boolean hasNext() {
             // see if I'm on the last node: if (current.next == null)
-            // see if I made it past the last node: if (current == null)
+            // see if I made it past the last node: if (cLurrent == null)
             if (currentPosition != null) {
                 return true;
             }
