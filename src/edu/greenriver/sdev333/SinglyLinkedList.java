@@ -31,6 +31,7 @@ public class SinglyLinkedList<ItemType> implements List<ItemType> {
      * @return the number of items in this collection
      */
     @Override
+    //DONE ???
     public int size() {
         return size;
     }
@@ -115,7 +116,6 @@ public class SinglyLinkedList<ItemType> implements List<ItemType> {
 //            remove(position);
 //        }
 
-
         if (head.data == item) {
             head = head.next;
             size--;
@@ -154,6 +154,8 @@ public class SinglyLinkedList<ItemType> implements List<ItemType> {
      * @return true if this collection contains all the items
      * in the specified other collection
      */
+
+    // IF POSSIBLEEEE
     @Override
     public boolean containsAll(Collection<? extends ItemType> otherCollection) {
 //        return false;
@@ -187,6 +189,7 @@ public class SinglyLinkedList<ItemType> implements List<ItemType> {
      *                        from this collection
      */
     @Override
+    // IF POSSIBLEEEE
     public void removeAll(Collection<? extends ItemType> otherCollection) {
 
     }
@@ -200,6 +203,7 @@ public class SinglyLinkedList<ItemType> implements List<ItemType> {
      *                        this collection
      */
     @Override
+    // IF POSSIBLEEEE
     public void retainAll(Collection<? extends ItemType> otherCollection) {
 
     }
@@ -244,6 +248,7 @@ public class SinglyLinkedList<ItemType> implements List<ItemType> {
      * @throws IndexOutOfBoundsException if the index is out of range
      *                                   (index < 0 || index >= size())
      */
+    //TO DO!!!
     @Override
     public void set(int index, ItemType item) {
 
@@ -366,6 +371,7 @@ public class SinglyLinkedList<ItemType> implements List<ItemType> {
      * @throws NullPointerException if the specified item is null and this
      *                              list does not permit null items
      */
+    //TO TRY ???
     @Override
     public int lastIndexOf(ItemType item) {
         return 0;
@@ -384,7 +390,6 @@ public class SinglyLinkedList<ItemType> implements List<ItemType> {
     }
 
     private class OurCustomIterator implements Iterator<ItemType>{
-
         // field
         private Node currentPosition;
 
@@ -445,6 +450,17 @@ public class SinglyLinkedList<ItemType> implements List<ItemType> {
         @Override
         public boolean hasNext() {
             return currentPosition != null;
+        }
+
+        //TO TRY:
+        public boolean equals(Object otherObject){
+            return false;
+           // return (this == obj);
+        }
+
+        //TO TRY:
+        private boolean isValidIndex(int index){
+            return false;
         }
 
         /**
@@ -521,6 +537,11 @@ public class SinglyLinkedList<ItemType> implements List<ItemType> {
         @Override
         public int previousIndex() {
             return 0;
+        }
+
+        @Override
+        public int hashCode() {
+            return super.hashCode();
         }
 
         /**
