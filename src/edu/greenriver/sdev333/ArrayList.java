@@ -24,7 +24,6 @@ public class ArrayList<ItemType> implements List<ItemType> {
 
     public ArrayList(int capacity) {
         data = (ItemType[]) new Object[capacity];
-
     }
 
 
@@ -115,7 +114,18 @@ public class ArrayList<ItemType> implements List<ItemType> {
         size++;
 
     }// end of method
-
+    public void addToFront(ItemType item)
+    {
+        checkSize();
+        ItemType[] temp = (ItemType[]) new Object[data.length+1];
+        temp[0] = item;
+        for(int i =0; i <data.length; i ++)
+        {
+            temp[i+1] = data[i];
+        }
+        size++;
+        data = temp;
+    }
     // all of above code works until i run out of room.
     // when size becomes the same as length, I'm out of room
 
@@ -371,10 +381,10 @@ public class ArrayList<ItemType> implements List<ItemType> {
     @Override
     public boolean equals(Object otherObject)
     {
-       if(otherObject == this)
-       {
-           return true;
-       }
+        if(otherObject == this)
+        {
+            return true;
+        }
         if (!(otherObject instanceof ArrayList<?>)) {
             return false;
         }
@@ -382,20 +392,19 @@ public class ArrayList<ItemType> implements List<ItemType> {
 
         if(size != other.size)
         {
-           return false;
+            return false;
         }
 
         for(int i =0; i <size; i ++)
         {
-              if(!data[i].equals(other.data[i]))
-              {
-                  return false;
-              }
+            if(!data[i].equals(other.data[i]))
+            {
+                return false;
+            }
         }
         return true;
-
-
     }
+
     private class OurCustomIterator implements Iterator<ItemType> {
 
         //fields
