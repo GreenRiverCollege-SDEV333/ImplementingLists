@@ -345,6 +345,27 @@ public class SinglyLinkedList<ItemType> implements List<ItemType>{
         return 0;
     }
 
+    public boolean equals(Object otherObject){
+        if(otherObject == null){
+            return false;
+        }
+        SinglyLinkedList<ItemType> other = (SinglyLinkedList<ItemType>) otherObject;
+        if(size != other.size){
+            return false;
+        }
+
+        Node current = head;
+        Node otherCurrent = other.head;
+        while (current != null){
+            if(!current.data.equals(otherCurrent.data)){
+                return false;
+            }
+            current = current.next;
+            otherCurrent = otherCurrent.next;
+        }
+        return true;
+    }
+
     /**
      * Returns a list iterator over the elements in this list
      * (in proper sequence).
