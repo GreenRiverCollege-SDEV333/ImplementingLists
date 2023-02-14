@@ -1,0 +1,14 @@
+abstract data types (ADTs)
+- stacks (push, pop, top , size, isEmpty)
+- queue (enqueue, dequeue, front, size, isEmpty)
+- bag (add, isEmpty)
+- symbol table / map
+
+---------sep. concerns ----
+data structures, underlying the abstract data types
+-fixed sized array (built in Java array)
+-resizeable array (list -> arraylist)
+-linked list (list -> linkedlist)
+    nodes
+- binary tree
+- hash table

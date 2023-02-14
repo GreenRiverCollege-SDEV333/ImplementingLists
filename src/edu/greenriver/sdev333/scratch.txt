@@ -1,0 +1,19 @@
+//Constructor: LinkedList()
+//public int size()
+//public boolean isEmpty()
+//public boolean contains(ItemType item) - hint: this method can use indexOf to do its work
+//public int indexOf(ItemType item)
+//public void add(ItemType item)
+//public void add(int index, ItemType item)
+//public void remove(int index)
+//public ItemType get(int index)
+//public void set(int index, ItemType item)
+//public void clear()
+public Iterator<ItemType> iterator()
+
+public void remove(ItemType item) - hint: this method can use indexOf, then remove(index) to do its work
+**public int lastIndexOf(ItemType item)
+**public void addAll(Collection<ItemType> otherCollection)
+**public boolean equals(Object otherObject)
+public ListIterator<ItemType> listIterator()
+Move code to validate indexes into its own private method, something like: private boolean isValidIndex(int index)
