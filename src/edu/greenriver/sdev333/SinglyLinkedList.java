@@ -294,6 +294,7 @@ public class SinglyLinkedList<ItemType> implements List<ItemType> {
         //checking to see if the index is valid
         checkIndex(index);
 
+
         // add at the beginning,
         if (index == 0) {
             //change the head
