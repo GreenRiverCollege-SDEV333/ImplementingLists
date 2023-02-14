@@ -1,12 +1,13 @@
 import edu.greenriver.sdev333.*;
 import java.util.Iterator;
+import java.util.ListIterator;
 
 public class Main {
     public static void main(String[] args) {
 
         System.out.println("Hello world!");
 
-        List<String> friends = new ArrayList<String>();
+        List<String> friends = new RecursiveLinkedList<>();
         System.out.println("initial size is " + friends.size());
 
         friends.add("Jess");
@@ -21,7 +22,7 @@ public class Main {
         friends.add("Dorothy");
         friends.add("Susan");
         friends.add("Sophia");
-        friends.add(2, "Wednesday");
+        //friends.add(2, "Wednesday");
         System.out.println("size is now " + friends.size());
 
         System.out.println("The last index of Sussan " + friends.lastIndexOf("Susan"));
@@ -29,7 +30,7 @@ public class Main {
 //        for (int i = 0; i < friends.size(); i++){
 //            System.out.println(friends.get(i));
 //        }
-
+/*
         Iterator<String> itr = friends.iterator();
         while (itr.hasNext()){
             String name = itr.next();
@@ -41,6 +42,19 @@ public class Main {
         for(String name : friends){
             System.out.println(name);
         }
+
+        ListIterator<String> fancyItr = friends.listIterator();
+        while (fancyItr.hasNext()){
+            String name = fancyItr.next();;
+            System.out.println(name);
+        }
+
+        System.out.println();
+        while (fancyItr.hasPrevious()){
+            String name = fancyItr.previous();
+            System.out.println(name);
+        }
+        */
 
     }
 }
