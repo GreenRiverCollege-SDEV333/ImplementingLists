@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="b6f359aa-e2a3-4ee4-93df-ea44e1e9d62a" name="GreenRiverDev" url="http://junnynoriega375.greenriverdev.com/">
+        <fileTransfer rootFolder="/home/junnynor/public_html/" accessType="SFTP" host="junnynoriega375.greenriverdev.com" port="18765" sshConfigId="d61498bc-41ac-43a6-87a1-e8c660c38c2c" sshConfig="junnynor@junnynoriega375.greenriverdev.com:18765 password">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" keepAliveTimeout="0" passiveMode="true" shareSSLContext="true" />
+          </advancedOptions>
+        </fileTransfer>
+      </webServer>
+    </option>
+  </component>
+</project>
