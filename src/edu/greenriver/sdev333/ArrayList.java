@@ -98,26 +98,7 @@ public class ArrayList<ItemType> implements List<ItemType> {
      */
     @Override
     public void add(ItemType item) {
-
-        // all of above code works until i run out of room
-        // when size becomes the same as length, I'm out of room
-        if(size == data.length) {
-            //resize up (double up the array size)
-
-            //Step 1 - create a new larger array
-            ItemType[] temp = (ItemType[]) new Object[size * 2];
-
-            //Step 2 - copy items from data to temp
-            for (int i = 0; i < size; i++) {
-                temp[i] = data[i];
-            }
-
-            //Step 3 - repoint/reference data to point to new array
-            data = temp;
-
-            //Optional:
-            temp = null;
-        }
+        checkSize();
 
         data[size] = item;
         size++;
