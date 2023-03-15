@@ -3,6 +3,8 @@ package edu.greenriver.sdev333;
 import java.util.Iterator;
 import java.util.ListIterator;
 
+// Building an ArrayList Class Assingment
+
 public class ArrayList<ItemType> implements List<ItemType> {
     // WE NEED FIELDS
 
