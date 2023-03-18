@@ -111,6 +111,25 @@ public class RecursiveLinkedList <ItemType> implements List<ItemType>{
 
     @Override
     public void add(int index, ItemType item) {
+        //add(0, item)
+        if(index == 0){
+            //add to the front - list may or may not be empty
+            Node theNewOne = new Node();
+            theNewOne.data = item;
+            theNewOne.next = head;
+            head = theNewOne;
+        }else{
+            //anywhere else other than 0 (front)
+            Node current = head;
+            for(int i = 0; i < index - 1; i++){
+                current = current.next;
+            }
+
+            Node theNewOne = new Node();
+            theNewOne.data = item;
+            theNewOne.next = current.next;
+            current.next = theNewOne;
+        }
 
     }
 

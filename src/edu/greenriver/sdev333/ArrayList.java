@@ -31,10 +31,7 @@ public class ArrayList<ItemType> implements List<ItemType>{
      */
     @Override
     public boolean isEmpty() {
-        if(size == 0){
-            return true;
-        }
-        return false;
+        return size == 0;
     }
 
     /**
@@ -121,7 +118,7 @@ public class ArrayList<ItemType> implements List<ItemType>{
      */
     @Override
     public void clear() {
-
+        size = 0;
     }
 
     /**
@@ -152,7 +149,10 @@ public class ArrayList<ItemType> implements List<ItemType>{
      */
     @Override
     public void addAll(Collection<? extends ItemType> otherCollection) {
-        throw new UnsupportedOperationException("Not implemented");
+        for(ItemType item:otherCollection){
+            add(item);
+        }
+
     }
 
     /**
@@ -165,7 +165,9 @@ public class ArrayList<ItemType> implements List<ItemType>{
      */
     @Override
     public void removeAll(Collection<? extends ItemType> otherCollection) {
-
+        for(ItemType item : otherCollection){
+            this.remove(item);
+        }
     }
 
     /**
@@ -178,7 +180,13 @@ public class ArrayList<ItemType> implements List<ItemType>{
      */
     @Override
     public void retainAll(Collection<? extends ItemType> otherCollection) {
-
+            ListIterator<ItemType>  r = this.listIterator();
+            while (r.hasNext()){
+                ItemType item = r.next();
+                if(contains(item)){
+                    r.remove();
+                }
+            }
     }
 
     /**

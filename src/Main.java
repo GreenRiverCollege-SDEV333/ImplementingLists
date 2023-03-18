@@ -22,7 +22,7 @@ public class Main {
         friends.add("Dorothy");
         friends.add("Susan");
         friends.add("Sophia");
-        //friends.add(2, "Wednesday");
+        friends.add(2, "Wednesday");
         System.out.println("size is now " + friends.size());
 
         System.out.println("The last index of Sussan " + friends.lastIndexOf("Susan"));
